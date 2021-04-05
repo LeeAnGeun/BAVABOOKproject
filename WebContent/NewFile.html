@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+
+
+::-webkit-selection {
+  color: $brand-white;
+  background: $brand-primary;
+}
+
+::-moz-selection {
+  color: $brand-white;
+  background: $brand-primary;
+}
+::selection {
+  color: $brand-white;
+  background: $brand-primary;
+}
+
+
+.gtco-container {
+  max-width: 1140px;
+  position: relative;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+.gtco-products .one-row, .gtco-products .two-row {
+  width: 100%;
+  display: block;
+  margin-bottom: 30px;
+}
+.gtco-products .two-row {
+  height: 508px;
+}
+.gtco-products .one-row {
+  height: 508px;
+}
+.gtco-products .gtco-item {
+  position: relative;
+}
+.gtco-products .gtco-item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.gtco-products .gtco-item .overlay .copy {
+  bottom: -20px;
+  position: absolute;
+  left: 0;
+  padding: 20px;
+  z-index: 12;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+.gtco-products .gtco-item .overlay .copy h3 {
+  color: #fff;
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+.gtco-products .gtco-item .overlay .copy p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+.gtco-products .gtco-item .overlay .copy p:last-child {
+  margin-bottom: 0;
+}
+.gtco-products .gtco-item .overlay:before {
+  z-index: 7;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .8;
+  background: #fff;
+  background: -moz-linear-gradient(left, #fff 0%, #fff 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #fff), color-stop(100%, #fff));
+  background: -webkit-linear-gradient(left, #fff 0%, #fff fff%);
+  background: -o-linear-gradient(left, #fff 0%, #fff 100%);
+  background: -ms-linear-gradient(left, #fff 0%, #fff 100%);
+  background: linear-gradient(to right, #fff 0%, #fff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#fff', GradientType=1 );
+}
+.gtco-products .gtco-item:hover .overlay {
+  opacity: 7;
+  visibility: visible;
+}
+.gtco-products .gtco-item:hover .overlay .copy {
+  bottom: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.bg-img {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/*애니메이션 속도조절*/
+.animate__animated.animate__fadeInUp {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
+}
+
+
+
+
+.gtco-section {
+  padding: 7em 0;
+  clear: both;
+  position: relative;
+}
+@media screen and (max-width: 768px) {
+  .gtco-section {
+    padding: 3em 0;
+  }
+}
+.gtco-section.border-bottom {
+  border-bottom: 1px solid #d9d9d9;
+}
+.gtco-section.gtco-gray {
+  background: #f6f6f6;
+}
+
+</style>
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+  <link href="css/book.css" rel="stylesheet" />
+  
+  <!-- 애니메이션용 링크 -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<img src="https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg" style="height: 300px">
+
+	<div class="gtco-section gtco-products">
+		<div class="gtco-container">
+			<div>
+				<div class="row col-5">
+						<a href="#" class="gtco-item two-row bg-img animate__animated animate__fadeInUp" style="background-image: url(https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg)">
+							<div class="overlay">
+								<div class="copy">
+									<h3>당신은 사랑을 닮았다</h3>
+									<p>전미경</p>
+								</div>
+							</div>		
+							<img src="https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg" class="hidden">
+						</a>
+					</div>	
+				</div>
+			</div>
+		</div>
+	<button type="button" class="btn">버튼 색상</button>
+	
+	<div class="gtco-section gtco-testimonial gtco-gray">
+		<div class="gtco-container">
+	
+			<div class="row">
+				<div class="col-md-6 col-sm-6 animate__animated animate__fadeInUp">
+					<div class="gtco-testimony gtco-left">
+						<div><img src="images/person_1.jpg" alt="Free Website template by FreeHTML5.co"></div>
+						<blockquote>
+							<p>“Design must be functional and functionality must be translated into visual aesthetics, without any reliance on gimmicks that have to be explained.” <cite class="author">— Ferdinand A. Porsche</cite></p>
+						</blockquote>	
+					</div>
+				</div>			
+			</div>
+		</div>	
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+
+/* 폰트 */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700');
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+
+:root{ 
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+*{font-family:Fugaz One, cursive;
+ font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";}
+
+/* 네비바 색 */
+#mainNav.navbar-shrink .navbar-nav .nav-item .nav-link{
+  color: #ab896e;
+}
+#mainNav .nav-item .nav-link.js-scroll-trigger.fc1:hover{
+  color: #e9974d;
+}
+.fc1:active,  #mainNav .nav-item .nav-link.js-scroll-trigger.fc1:focus{
+  font-weight: bold;
+  color:#e9974d;
+}
+#mainNav.navbar-shrink {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgb(255,255,255);
+  color: #ab896e;
+}
+#mainNav.navbar-shrink .navbar-brand {
+  font-size: 1.7em; color: #ab896e;
+}
+
+/* 메인버튼 */
+.btn-main{
+  background: #e9974d;
+  color: #fff;
+}
+.btn-main:hover{
+  background: #f2f2f2;
+  color: #e9974d;
+  transition: background-color 0.3s linear;
+}
+
+/* 검색 */
+.btn-search{
+  background: #f2f2f2;
+  color: #696969;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  position: relative;
+  margin-left: -1px;
+}
+.btn-search:hover{
+  background: #e9974d;
+  color: #fff;
+  transition: background-color 0.3s linear;
+}
+input.search{
+  border-radius: 0;
+  width: 100%;
+  color: #666;
+  border: 1px solid #E8E8E8;
+}
+.input-group input.search:focus{
+  outline: 0.5 #e9974d;
+}
+.form-control{
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: 1px solid #E8E8E8;
+}

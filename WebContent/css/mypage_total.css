@@ -1,0 +1,121 @@
+body{
+	background-color: #fff;
+}
+*{
+	background-color: #fff;
+   magin:0; padding:0;
+}
+.totalcontent {
+}
+
+.wishlist { /* 책 위시리스트 파트 */
+	height: ;
+	background-color: #fff;
+    color: #ab896e;
+    text-align: left;
+    margin: 0 0 50px 0;
+}
+
+.member{ /* 회원정보 파트*/
+    background-color: #fff;
+    height: 450px;
+    margin: 0;
+    margin-left: 0;
+    text-align: center;
+    color: #ab896e;
+}
+
+.booksearch{ /* 책검색 파트*/
+   height: 400px;
+   background-color: #fff;
+    text-align: center;
+    color: #ab896e;
+}
+
+
+.clublist{ /* 소모임 파트 */
+   height: 450px;
+    background-color: #fff;
+    color: #ab896e;
+    text-align: center;
+}
+
+.wishAndsearch{
+   magin:0; padding:0;
+
+}
+
+.memAndclub{
+   magin:0; padding:0;
+}
+
+
+.booklisttable {
+   /* border: 1px solid #ab896e; */ 
+   width: 100%;
+
+   /* table-layout: fixed; */
+}
+
+
+.wishbooksize { /* 위시리스트 북 이미지 사이즈 */
+   height: 150px;
+}
+
+.pagingarea{ /* 위시리스트 페이징 숫자 (동그라미) 공간 */
+   height: 30px;
+}
+
+
+
+.booktd { /* 찾은 책 검색 결과 테이블 td */
+   height:150px;
+   width:120px;
+   
+}
+
+
+.profiletable{ /* 개인정보 테이블 */
+   /* border: 1px solid black; */
+   width: 100%
+}
+
+.clublisttable{ /* 클럽리스트 테이블 */
+	font-size : 10pt;
+	FONT-WEIGHT: 800;
+   border: 1px solid #E8D3C1;  
+   background-color: #fff;
+   border-radius: 20px;
+   box-shadow: 0px 0px 15px 1px;
+	-webkit-box-shadow:0px 0px 15px 1px;
+	border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+.clubImageTd{   /* 클럽리스트 표 td */
+   height: 100px;
+   text-align: center;
+   color: #4b4b49
+   
+}
+
+.memAndclub{
+   /* float:left; */
+}
+
+
+.searchpagingarea {
+   height: 30px;
+   background-color: #fff
+}
+
+.clubhead{
+	background-color: e8d3c1
+}
+
+.bookshelftd{
+	
+	height: 10px;
+}
+
+img { display: block; margin: 0px auto; }
+
