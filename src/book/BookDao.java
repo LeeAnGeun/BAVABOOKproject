@@ -699,10 +699,10 @@ public class BookDao {
           System.out.println("getInsertReview 2/3");
           
           psmt.executeUpdate();   //count로 안 받아줘도 가능
-          System.out.println("getInsertReview 3/3");
+          System.out.println("getInsertReview 3/3" + rev.getMembernum());
 
           setActivity(rev.getMembernum()); //유저 활동지수 올리는 메서드
-          
+          ratingAvg(rev.getBooknum()); //책 별점 평균계산
           } catch (Exception e) {
              System.out.println("getInsertReview 오류");
              e.printStackTrace();
@@ -719,15 +719,15 @@ public class BookDao {
          PreparedStatement psmt = null;
                   
          try {
-	         conn = DBConnection.getConnection();
-	         System.out.println("setActivity 1/3");
-	         
-	         psmt = conn.prepareStatement(sql);
-	         psmt.setInt(1, seq);
-	         System.out.println("setActivity 2/3");
-	         
-	         psmt.executeUpdate();
-	         System.out.println("setActivity 3/3");
+            conn = DBConnection.getConnection();
+            System.out.println("setActivity 1/3");
+            
+            psmt = conn.prepareStatement(sql);
+            psmt.setInt(1, seq);
+            System.out.println("setActivity 2/3" + seq);
+            
+            psmt.executeUpdate();
+            System.out.println("setActivity 3/3");
          }
          catch (Exception e) {System.out.println("setActivity 오류");}
          finally {DBClose.close(conn, psmt, null);}         
@@ -739,8 +739,8 @@ public class BookDao {
          String sql = "";
          //최신순
          if(choice.equals("revdate")) {      
-            sql =    " SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, MEMBERNUMER, USERID, RNUM "
-                  + " FROM(SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, M.MEMBERNUM AS MEMBERNUMER, USERID, ROW_NUMBER()OVER(ORDER BY REVDATE DESC, REVSEQ DESC) AS RNUM "
+            sql =    " SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, MEMBERNUMER, USERID, USERIMAGE, RNUM "
+                  + " FROM(SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, M.MEMBERNUM AS MEMBERNUMER, USERID, USERIMAGE, ROW_NUMBER()OVER(ORDER BY REVDATE DESC, REVSEQ DESC) AS RNUM "
                   + " FROM MEMBERS M, REVIEW R " 
                   + " WHERE M.MEMBERNUM = R.MEMBERNUM "
                      + "   AND BOOKNUM = ? " 
@@ -749,8 +749,8 @@ public class BookDao {
       
             //rating높은 순
          }else if(choice.equals("rating")) {
-            sql =    " SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, MEMBERNUMER, USERID, RNUM "
-                  + " FROM(SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, M.MEMBERNUM AS MEMBERNUMER, USERID, ROW_NUMBER()OVER(ORDER BY RATING DESC, REVDATE DESC) AS RNUM "
+            sql =    " SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, MEMBERNUMER, USERID, USERIMAGE, RNUM "
+                  + " FROM(SELECT REVSEQ, REVCONTENT, REVDATE, RATING, BOOKNUM, M.MEMBERNUM AS MEMBERNUMER, USERID, USERIMAGE, ROW_NUMBER()OVER(ORDER BY RATING DESC, REVDATE DESC) AS RNUM "
                   + " FROM MEMBERS M, REVIEW R " 
                   + " WHERE M.MEMBERNUM = R.MEMBERNUM "
                      + "   AND BOOKNUM = ? " 
@@ -781,6 +781,7 @@ public class BookDao {
             psmt.setInt(2, start);
             psmt.setInt(3, end);
             System.out.println("getAllReview 2/4");
+            /* System.out.println(rs.getString(7)); */
             
             rs = psmt.executeQuery();
             System.out.println("getAllReview 3/4");
@@ -794,6 +795,7 @@ public class BookDao {
                                           rs.getInt(i++),
                                           rs.getInt(i++),
                                           rs.getInt(i++),
+                                          rs.getString(i++),
                                           rs.getString(i++));
                list.add(rev);
             }
@@ -849,13 +851,6 @@ public class BookDao {
          
       }
       
-      //RATING 평균내기
-      public void ratingAvg() {
-    	  String sql = "UPDATE REVIEW "
-    			  	+ " SET "
-    			  	+ " WHERE ";
-    	  
-      }
       
       //해당 책의 현재 별점 가져오기
       public int getBookgrade(int booknum) {
@@ -881,5 +876,257 @@ public class BookDao {
           finally { DBClose.close(conn, psmt, rs);}
           return grade;
        }
+      
+      // 신작
+      public List<BookDto> getNewBookList() {
+         String sql = " SELECT BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
+                   + " AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE, RNUM "
+                   + " FROM (SELECT ROW_NUMBER()OVER(ORDER BY ISSUEDATE DESC, BOOKNUM DESC) AS RNUM, BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE,"
+                   + " AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE "
+                   + " FROM BOOK "
+                   + " WHERE BOOKDEL = 0 "
+                  + " ORDER BY ISSUEDATE DESC, BOOKNUM DESC) "
+                  + " WHERE RNUM BETWEEN 1 AND 3 ";
+         
+             System.out.println(sql);
+             
+             Connection conn = null;
+             PreparedStatement psmt = null;
+             ResultSet rs = null;
+             
+             List<BookDto> list = new ArrayList<BookDto>();
+             
+             try {
+                
+                conn = DBConnection.getConnection();
+                System.out.println("getNewBookList 1/4");
+                
+                psmt = conn.prepareStatement(sql);
+                System.out.println("getNewBookList 2/4");
+                
+                rs = psmt.executeQuery();
+                System.out.println("getNewBookList 3/4");
+                
+                //전체 다 가지고오기
+                while(rs.next()) {   
+                   int i = 1;
+                   BookDto dto = new BookDto(rs.getInt(i++),
+                                     rs.getString(i++),
+                                     rs.getInt(i++),
+                                     rs.getInt(i++),
+                                     rs.getInt(i++),
+                                     rs.getDouble(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i));
+
+                   
+                list.add(dto);            
+                }
+             }catch (SQLException e) {
+                  System.out.println("getNewBookList 오류");
+                  e.printStackTrace();
+               }finally {
+                  
+                  db.DBClose.close(conn, psmt, rs);
+               }
+               
+               return list; 
+      }    
+      
+      //RATING 평균내기
+      public void ratingAvg(int booknum) {
+         //select별점가져오기
+         String sql1 = " SELECT B.BOOKNUM, B.BOOKTITLE, B.GRADE, BA.GRADEAVG "
+               + " FROM BOOK B, (SELECT BOOKNUM, ROUND(AVG(RATING),1) AS GRADEAVG "
+               + " FROM REVIEW GROUP BY BOOKNUM) BA "
+               + " WHERE B.BOOKNUM=BA.BOOKNUM "
+               + " AND BA.BOOKNUM=? ";
+         //update
+         String sql2 = " UPDATE BOOK SET GRADE=? WHERE BOOKNUM=? ";
+         
+         Connection conn = null;
+         PreparedStatement psmt = null;
+         ResultSet rs = null;
+          Double ratingAvg = 0.0;
+        
+          try {
+              conn = DBConnection.getConnection();
+              conn.setAutoCommit(false); //자동 커밋 해체
+              System.out.println("1/6 ratingAvg");
+              
+              //select 부터
+              psmt = conn.prepareStatement(sql1);
+              psmt.setInt(1, booknum);
+              
+              rs = psmt.executeQuery();
+              if(rs.next()) {ratingAvg = rs.getDouble(4);}
+              System.out.println("2/6 ratingAvg" + ratingAvg);
+              
+              psmt.clearParameters();//psmt 초기화
+              System.out.println("3/6 ratingAvg");
+              
+              //다음 update
+              psmt = conn.prepareStatement(sql2);
+              psmt.setDouble(1, ratingAvg);
+              psmt.setInt(2, booknum);
+              System.out.println("4/6 ratingAvg");
+              
+              psmt.executeUpdate();
+              System.out.println("5/6 ratingAvg");
+              
+              conn.commit();
+              System.out.println("6/6 ratingAvg");
+           
+          }
+          
+           catch (SQLException e) {
+              System.out.println("ratingAvg fail");
+              try {conn.rollback();}
+              catch (SQLException e1) {e1.printStackTrace();}
+           }
+             
+           finally {
+              try {conn.setAutoCommit(true);}
+              catch (SQLException e) {e.printStackTrace();}
+              DBClose.close(conn, psmt, rs);
+           }
+          
+         }
+      
+      // 이달의 책
+      public List<BookDto> getBestBookList(){
+         String sql = " SELECT BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
+                  + " AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE, RNUM "
+                  + " FROM (SELECT ROW_NUMBER()OVER(ORDER BY GRADE DESC, BOOKREADCOUNT DESC) AS RNUM, BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
+                  + " AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE "
+                  + " FROM BOOK "
+                  + " WHERE BOOKDEL = 0 "
+                  + " ORDER BY GRADE DESC, BOOKREADCOUNT DESC) "
+                  + " WHERE RNUM BETWEEN 1 AND 4 ";
+                      
+            System.out.println(sql);
+            
+            Connection conn = null;
+            PreparedStatement psmt = null;
+            ResultSet rs = null;
+            
+            List<BookDto> list = new ArrayList<BookDto>();
+            
+            try {
+               
+               conn = DBConnection.getConnection();
+               System.out.println("getBestBookList 1/4");
+               
+               psmt = conn.prepareStatement(sql);
+           
+               System.out.println("getBestBookList 2/4");
+               
+               rs = psmt.executeQuery();
+               System.out.println("getBestBookList 3/4");
+           
+               while(rs.next()) {   
+                  int i = 1;
+                  BookDto dto = new BookDto(rs.getInt(i++),
+                                    rs.getString(i++),
+                                    rs.getInt(i++),
+                                    rs.getInt(i++),
+                                    rs.getInt(i++),
+                                    rs.getDouble(i++),
+                                    rs.getString(i++),
+                                    rs.getString(i++),
+                                    rs.getString(i++),
+                                    rs.getString(i++),
+                                     rs.getString(i));
+                  
+               list.add(dto);            
+                  
+               }
+               
+               System.out.println("getBestBookList 4/4");
+               
+            } catch (SQLException e) {
+               System.out.println("getBestBookList 오류");
+               e.printStackTrace();
+            }finally {
+               
+               db.DBClose.close(conn, psmt, rs);
+            }
+            
+            return list;   
+      }
+      
+      public List<BookDto> getBookAllList(String searchTitle, String searchText){
+         
+         String sql = " SELECT BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
+                   + " AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE, RNUM "
+                   + " FROM (SELECT ROW_NUMBER()OVER(ORDER BY ISSUEDATE DESC, BOOKNUM DESC) AS RNUM, BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE,"
+                   + " AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE "
+                   + " FROM BOOK "
+                   + " WHERE BOOKDEL = 0 ";
+             
+             String sWord ="";
+             
+             if(searchTitle.equals("title")) {
+                sWord = " AND BOOKTITLE LIKE '%" +searchText+ "%' ";   
+             }else if(searchTitle.equals("author")) {
+                sWord = " AND AUTHOR LIKE '%"+searchText+"%' ";
+             }
+             
+             sql = sql + sWord + " ORDER BY ISSUEDATE DESC, BOOKNUM DESC) ";
+             
+             System.out.println(sql);
+             
+             Connection conn = null;
+             PreparedStatement psmt = null;
+             ResultSet rs = null;
+             
+             List<BookDto> list = new ArrayList<BookDto>();
+             
+             try {
+                
+                conn = DBConnection.getConnection();
+                System.out.println("getBookList 1/4");
+                
+                psmt = conn.prepareStatement(sql);
+                System.out.println("getBookList 2/4");
+                
+                rs = psmt.executeQuery();
+                System.out.println("getBookList 3/4");
+                
+                //전체 다 가지고오기
+                while(rs.next()) {   
+                   int i = 1;
+                   BookDto dto = new BookDto(rs.getInt(i++),
+                                     rs.getString(i++),
+                                     rs.getInt(i++),
+                                     rs.getInt(i++),
+                                     rs.getInt(i++),
+                                     rs.getDouble(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i++),
+                                     rs.getString(i));
+
+                   
+                list.add(dto);            
+                   
+                }
+                
+                System.out.println("getBookList 4/4");
+                
+             } catch (SQLException e) {
+                System.out.println("getBookList 오류");
+                e.printStackTrace();
+             }finally {
+                
+                db.DBClose.close(conn, psmt, rs);
+             }
+             
+             return list;         
+          }
       
 }

@@ -4327,6 +4327,9 @@ input[type=button].btn-block {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
+  height: 340px;
+  width: 220px;
+  box-shadow: 0px 10px 30px 5px rgb( 0 0 0 /15%);
 }
 .card > hr {
   margin-right: 0;
@@ -10503,6 +10506,8 @@ section#contact form#contactForm :-ms-input-placeholder {
   position: relative;
   overflow: hidden;
   height: 300px;
+  width: 200px;
+  box-shadow: 0px 10px 30px 5px rgb( 0 0 0 /15%);
 }
 .bookrankimg img{
   position: absolute;
@@ -10510,12 +10515,13 @@ section#contact form#contactForm :-ms-input-placeholder {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 1px 1px 5px 2px gray;
 }
 .userGrade{
   position: relative;
   overflow: hidden;
   height: 80px;
+  width: 80px;
+  
 }
 .userGrade img{
   position: absolute;
@@ -10528,7 +10534,7 @@ section#contact form#contactForm :-ms-input-placeholder {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 280px;
+  height: 180px;
 }
 #bestclub .clubimg img{
   position: absolute;
@@ -10558,23 +10564,23 @@ a:hover{
   font-weight: bold;
   color:#e9974d;
 }
-
-/* 메인슬라이드 */
-#bookslide {color: }
+.dropdown:hover > .dropdown-menu{display: block;}
 
 /* 카드 색 */
-.card{box-shadow: 5px 5px 15px 2px gray;}
 .card-footer{background-color: white;}
 .card-footer .text-muted{font-size: 12px;}
 
 /* 책 카드 올라오기 */
 #bookranking .overlay {
   position: absolute;
-  height: 100%;
+  width: 100%;
+  height: 300px;
   top: 100%; left: 0;
+  padding: 50px 30px;
   z-index: 10;
   opacity: 0;
   visibility: hidden;
+  color: #696969;
   background-color: rgba(255, 255, 255, 0.85);
   transition: all 1s;
 }
@@ -10590,24 +10596,94 @@ a:hover{
 }
 
 /* 활동순위 */
-#bestactivity .user-box{
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  min-height: 460px;
+#bestactivity{
+  margin-top: 100px; 
 }
 
-.user-wrap{ position: relative;}
-.timer{
-  color: #e9974d;
-  position: relative;
-  left: 48%;
+#bestactivity .user-box1{
+  background-color: rgba(75, 75, 73);
+  min-height: max-content;
+  height: 450px;
 }
-.activerank{
-  float: left;
+#bestactivity .user-box2{
+  background-color: rgba(225, 225, 225);
+  padding-left: 0;
+  height: 450px;
 }
+#bestactivity .user-row{
+  margin: 0;
+  padding: 0 20px;
+}
+#bestactivity .user-box3{
+  height: 450px;
+  padding: 0;
+}
+#bestactivity .user-box4{
+  /* background-color: #f8f9fa; */
+  background-color: rgba(75, 75, 73);
+  /* border-top: solid 1px rgb(255,255,255);
+  border-right: solid 1px rgb(255,255,255); */
+}
+.user-wrap{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+  padding-bottom: 30px;
+}
+.timer{color: #e9974d; margin-top: 20px;}
+.activerank{ float: left;}
 .activerank1{
-  padding: 30% 0 0 50px;
+  height: 60%;
+  margin-top: 90px;
+  padding-left: 30px;
+  border-left: solid #e9974d 9px;
+}
+.outline{
+  position: relative;
+  width: 100%; height: 50px;
+  margin: 0;
+}
+.outline span{position: absolute; background: rgb(255,255,255);}
+.ac1 span:nth-child(1) {
+  left: 0; top: 0; width: 0; height: 7px;
+  animation: mylineW 0.4S linear both 0.3s;
+}
+.ac1 span:nth-child(2) {
+  right: 0; top: 0; width: 7px; height: 0;
+  animation: mylineH 0.1S linear both 0.7s;
+}
+.ac2 span:nth-child(1) {
+  left: 0; top: 0; width: 0; height: 7px;
+  animation: mylineW 0.4S linear both 0.8s;
+}
+.ac2 span:nth-child(2) {
+  right: 0; top: 0; width: 7px; height: 0;
+  animation: mylineH 0.1S linear both 1.2s;
+}
+.ac3 span:nth-child(1) {
+  left: 0; top: 0; width: 0; height: 7px;
+  animation: mylineW 0.4S linear both 1.3s;
+}
+.ac3 span:nth-child(2) {
+  right: 0; top: 0; width: 7px; height: 0;
+  animation: mylineH 0.1S linear both 1.7s;
+}
+.ac4 span:nth-child(1) {
+  left: 0; top: 0; width: 0; height: 7px;
+  animation: mylineW 0.4S linear both 1.8s;
+}
+.ac4 span:nth-child(2) {
+  right: 0; top: 0; width: 7px; height: 0;
+  animation: mylineH 0.1S linear both 2.2s;
+}
+@keyframes mylineW {
+  from {width: 0;}
+  to {width: 100%; }
+}
+@keyframes mylineH {
+  from {height: 0;}
+  to {height: 100%; }
 }
 
 /* 딜레이 시간 조절 */
@@ -10616,27 +10692,22 @@ a:hover{
 .bimg3{animation: 1s both 0.6s;}
 .bimg4{animation: 1s both 0.9s;}
 
-.pos1{ top: 110px; left: -27%; animation: 1s both;}
-.pos2{ top: 50px; left: -9%; animation: 1s both 0.3s;}
-.pos3{ top: -20px; left: 10%; animation: 1s both 0.7s;}
-.pos4{ top: -80px; left: 29%; animation: 1s both 1.1s;}
-.por1{ position: relative; animation: 1s both 1.2s;}
+.pos1{ height: 60%; animation: 1s both;}
+.pos2{ height: 69.7%; animation: 1s both 0.3s;}
+.pos3{ height: 79.3%; animation: 1s both 0.7s;}
+.pos4{ height: 88.8%; animation: 1s both 1.1s;}
+.por1{ position: relative; animation: 1s both 1.5s;}
+
+.pbs1{ height: 40%;}
+.pbs2{ height: 30.3%;}
+.pbs3{ height: 20.7%;}
+.pbs4{ height: 11.2%;}
 
 .card1{animation: 1s both;}
 .card2{animation: 1s both 0.3s;}
 .card3{animation: 1s both 0.6s;}
 .card4{animation: 1s both 0.9s;}
 
-/* 메인버튼 */
-.btn-main{
-  background: #e9974d;
-  color: #fff;
-}
-.btn-main:hover{
-  background: #f2f2f2;
-  color: #e9974d;
-  transition: background-color 0.3s linear;
-}
 
 /* 검색 */
 .btn-search{
@@ -10665,4 +10736,23 @@ input.search{
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border: 1px solid #E8E8E8;
+}
+/* 메인버튼 */
+.btn-main{
+  background: #e9974d;
+  color: #fff;
+}
+.btn-main:hover{
+  background: #f2f2f2;
+  color: #e9974d;
+  transition: background-color 0.3s linear;
+}
+footer a, a {
+  color: #ab896e;
+  text-decoration: none;
+  background-color: transparent;
+}
+footer a:hover,a:hover {
+  color: #4b4b49;
+  text-decoration: none;
 }

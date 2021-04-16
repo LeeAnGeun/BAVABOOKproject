@@ -24,7 +24,6 @@
 <style type="text/css">
 body {
     margin: 0;
-    background: #f5f5f5;
 }
 
 
@@ -32,10 +31,9 @@ body {
   border-radius: 2;
   background: #e8974c;
   color: #f5f5f5;
-  /* color: #696969; */
   width: 100%;
   border: 1px solid #E8E8E8;
-  
+
 }
 
 .btn-search:hover{
@@ -44,6 +42,23 @@ body {
   transition: background-color 0.3s linear;
 }
 
+.container .master > a{
+   text-decoration: none;
+}
+
+.container .master > a> h4{
+   color: #4b4b49;   
+   font-size: 20pt;
+   font-weight: 700;
+}
+
+.container .master > p{
+   margin-top:5px;
+   color: #4b4b49;   
+   font-size: 11pt;
+   font-weight: 400;
+   font-style: italic;
+}
 
 </style>
   
@@ -57,26 +72,20 @@ body {
   </script>
 
 <header style="height: 5em">
-
-<h1>관리자 추가 페이지</h1>
-<!-- 로고 -->
-<!-- <nav class="navbar navbar-expand-sm fixed-top justify-content-end js-scroll-trigger">
-   <div class="logo"><img alt="" src="./img/ab8962_logo.png"></div>
-
-         <button class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span> 
-      </button>
-</nav> -->
 </header>
 
+<div class="container">
+	<div class="master" style="height:65px;border-left:4px solid #e8974c;padding-left:25px; margin-bottom: 50px;margin-top:20px;">
+	   <a href="book?param=masterPage"><h4>BAVABOOK 관리자 페이지</h4></a>
+	   <p>BAVABOOK 관리자페이지입니다.</p>
+	</div>
+</div>
 
-<!-- /////////////////////////책소개부분//////////////////////////// -->
 
+<!-- ///////////////////// 관리자 insert /////////////////////// -->
 <div style="background-color: #f1edea; height: 450px; margin-top: 50px">
-
 	<div class="container" style="position: relative;">
-		 <form action="loginimg" method="post" enctype="multipart/form-data">
+		 <form action="loginimg?param=book" method="post" enctype="multipart/form-data">
   			<input type="hidden" name="checkFlag" value="insert" />
 		  <div class="row p-4">
 		   <div class="col-sm-9" style="margin:0 auto;">
@@ -85,7 +94,7 @@ body {
 		            <div class="center-block bookimg" style="text-align: center; display: inline-block;">
 		            <label for="newImg">
 		               
-		                  <img id="bookImg" style="height: 400px;" class="img-responsive bookimg" src="https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg">
+		                  <img id="bookImg" style="height: 400px;" class="img-responsive bookimg" src="./img/noneBook1.png">
 		               
 		            </label>
 		            <input type="file" name="bookimage" id="newImg" style="display: none">
@@ -97,7 +106,7 @@ body {
 		           
 		       
 		            <table class="table table-borderless table-sm">
-		               <col width="100">
+		               <col width="100px">
 		               <tr>
 		               <th colspan="2">
 		               <tr>
@@ -107,7 +116,7 @@ body {
 		               <tr>
 		                  <th>장르</th>
 		                  <td>
-		                  <select class="category" name="categories">
+		                  <select class="category" name="categories" style="width:185.6px;height:30px">
 		                		<option value="100"  >시</option>
 		               			<option value="200" >소설</option>
 		               			<option value="300" >에세이</option>
@@ -138,9 +147,9 @@ body {
 		                  <td><input type="text" name="publisher" placeholder="출판사" value=""></td>
 		               </tr>
 		            </table>
-		               <div class="row" style="margin-right: -80px;">
-		                     <div class="col-sm-6 p-2" style="margin-left: 110px;">
-		                         <button class="btn btn-search" type="submit" style="width: 100%">작성 완료</button>
+		               <div class="row" style="margin-right: -280px;">
+		                     <div class="col-sm-6 p-2" style="margin-left: 10px;">
+		                         <button class="btn btn-search" type="submit" >작성 완료</button>
 		                     </div>
 		                  </div> 
 		         </div>
@@ -154,86 +163,6 @@ body {
 </div>
 
 
-
-<!--  <form action="loginimg" method="post" enctype="multipart/form-data">
-  <input type="hidden" name="checkFlag" value="insert" />
-<div class="layer">
-<div style="background-color: #f1edea; height: 390px; margin-top: 50px">
-<div class="container" style="position: relative;">
-  <div class="row p-4">
-   <div class="col-sm-9">
-      <div class="row" >
-         <div class="col-sm-5 service-wrap" style="margin-top: 70px" >
-            <div class="center-block bookimg" style="text-align: center; display: inline-block;">
-            <label for="newImg">
-               
-                  <img id="bookImg" style="width: 100%" class="img-responsive bookimg" src="https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg">
-               
-            </label>
-            <input type="file" name="bookimage" id="newImg" style="display: none">
-            </div>
-         </div>   
-
-         <div class="col-sm-7 p-5">
-            <div><input name="booktitle" value=""></div>
-           
-       
-            <table class="table table-borderless table-sm">
-               <col width="100">
-               <tr>
-               <th colspan="2">
-               <tr>
-                  <th>책제목</th>
-                  <td><input type="text"  name="booktitle" placeholder="책제목"  value=""></td>
-               </tr>
-               <tr>
-                  <th>장르</th>
-                  <td>
-                  <select class="category" name="categories">
-                		<option value="100"  >시</option>
-               			<option value="200" >소설</option>
-               			<option value="300" >에세이</option>
-               			<option value="400" >자기계발</option>
-               			<option value="500" >경제</option>
-               			<option value="600" >역사</option>
-               			<option value="700" >예술</option>
-               			<option value="800" >과학</option>
-               			<option value="900" >사회</option>
-               			<option value="1000" >만화</option>
-             		</select>
-             		</td>
-               </tr>
-               <tr>
-                  <th>작가</th>
-                  <td><input type="text"  name="author" placeholder="작가"  value=""></td>
-               </tr>
-               <tr>
-                  <th>북헤더</th>
-                  <td><input type="text"  name="bookheader" placeholder="북헤더"  value=""></td>
-               </tr>
-               <tr>
-                  <th>발행일</th>
-                  <td><input type="text" name="issudate"  placeholder="발행일" id="datepicker" value=""></td>
-               </tr>
-               <tr>
-                  <th>출판사</th>
-                  <td><input type="text" name="publisher" placeholder="출판사" value=""></td>
-               </tr>
-            </table>
-               <div class="row" style="margin-left: 150px;">
-                     <div class="col-sm-6 p-4">
-                         <button class="btn btn-search" type="submit">작성 완료</button>
-                     </div>
-                  </div> 
-         </div>
-      </div>
-           
-       </div>
-   </div>
-</div>
-</div>
-</div>
- </form>  -->
  <!-- The Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">

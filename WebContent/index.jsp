@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String content = request.getParameter("content");
-if(content==null){content = "home";}%>
+<% 
+String content = request.getParameter("content");
+if(content==null || content.equals("")){
+	content = (String)request.getAttribute("content");
+}
+// content = request.getParameter("content");
+%>
 <!DOCTYPE html>
 <html>
 <head>

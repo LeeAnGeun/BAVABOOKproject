@@ -47,7 +47,7 @@ public class BookLoadController extends HttpServlet {
 		   
 		  	   
 		   // tomcat 베포 - server
-		   String fupload =  mConfig.getServletContext().getRealPath("/upload");
+		   String fupload =  mConfig.getServletContext().getRealPath("/bookload");
 		   // 지정 폴더 - client
 		   // String fupload = "d:\\tep";
 		   System.out.println("업로드 폴더 : " + fupload);

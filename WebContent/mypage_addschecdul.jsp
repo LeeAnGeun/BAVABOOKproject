@@ -58,20 +58,18 @@ mem = (MemberDto)userId;
 <head>
 <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  <link href="css/main.css" rel="stylesheet" />
-  <link href="css/book.css" rel="stylesheet" />
-  <link href="css/action.css" rel="stylesheet" />
-  
+   
   
   <!-- css -->
-    <link href="css/action.css" rel="stylesheet" />
+ <link href="css/book.css" rel="stylesheet" />
+  
   
    <!-- 애니메이션용 링크 -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -82,23 +80,35 @@ mem = (MemberDto)userId;
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	
+	<!-- font font-family: 'Noto Serif KR', serif; -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+  
+	
+	
 <title>일정 추가</title>
 </head>
-<body>
+<body style="font-family: 'Noto Serif KR', serif;">
+
+<div style="height: 4em">
+</div>
 <div class="container">
-	<h2>일정 추가</h2>
+	<div class="animate__animated animate__fadeIn Sheader" style="height:65px;border-left:4px solid #e8974c;padding-left:25px; margin-bottom:50px;margin-top:50px;">
+	   <h2>일정 추가</h2>
+	   <p style="font-style: italic;">자유롭게 일정을 추가하세요.</p>
+	</div>
 
 
 	<div class="row">
 	<div class="col-sm-8 col-xs-12">
 		<div id="NewBook" class="container tab-pane active"><br>
-   	<div class="gtco-container">
-   	<div class='row gtco-section gtco-products'>
+   	<div class="gtco-container" style="margin-top: -50px;margin-left: -50px">
+   	<div class='row gtco-section1 gtco-products'>
 			<!-- 책을 가져오는 부분 -->
    	 		<%
    	 			if(Booklist == null || Booklist.size() == 0){
    	 		%>
-   	 		<div>
+   	 		<div style="margin-left: 30px;margin-top: 20px">
    	 			<p>검색한 책이 없습니다.</p>
    	 		</div>
    	 		<%
@@ -115,7 +125,7 @@ mem = (MemberDto)userId;
 						<p><%=dto.getAuthor() %></p>
 					</div>
 				</div>	
-		 		 	<img class="service" src="https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg" >
+		 		 	<img class="service" src="./upload/<%=dto.getBookimage() %>" style="height: 240px" >
 	 			</a>
 	 			</div>	
 	 			<%		}
@@ -127,7 +137,7 @@ mem = (MemberDto)userId;
 	
 	
 				<!-- 페이징 버튼 -->
-			<div class="btn-toolbar justify-content-center paging" role="toolbar" aria-label="Toolbar with button groups"">	
+			<div class="btn-toolbar justify-content-center paging" role="toolbar" aria-label="Toolbar with button groups" style="margin-bottom: 30px;">	
 				<div class="btn-group mr-2" role="group" aria-label="First group" >
 				<%
 					for(int i = 0;i<bookPage;i++){
@@ -148,16 +158,19 @@ mem = (MemberDto)userId;
     	</div>
     	<!-- /////////////////////////////////////////////// -->
     	
-	<div class="col-sm-4 col-xs-12">
+	<div class="col-sm-4 col-xs-12" style="background-color:#f5f5f5;height: 500px; box-shadow: 0px 10px 30px 5px rgb(0 0 0 / 15%);">
 		
     	
 	<!-- //////////////////////////// -->
-	
+	<div style="border-bottom: 3px solid #E8D3C1;margin-bottom: 10px;margin-top: 20px">
+         <h2 class="animate__animated animate__fadeInRight" style="margin-left: 10px;">ADD BOOK</h2>
+      </div>
+	<div class="animate__animated animate__fadeInRight" style="height: 500px;width:350px;" align="center">
 	<form id="frm" action="schedule" method="">
 	<input type="hidden" value="schedulwriteAf" name="param">
 	<input type="hidden" value="<%=mem.getMembernum() %>" name="membernum">
 	<table class="table table-border">
-	<!-- <col width="200"><col width="500"> -->
+	<col width="100"><col width="280">
 	<tr>
 		<th>ID</th>
 		<td>
@@ -209,40 +222,43 @@ mem = (MemberDto)userId;
 		<tr>	
 		<th>END</th>	
 		<td>
-			<p><input type="text" id="enddate" name="enddate" value="<%=enddate %>"></p>			
+			<input class="form-control form-control-sm" type="text" id="enddate" name="enddate" value="<%=enddate %>">			
 		</td>
 		</tr>	
 		
 		<tr>	
 		<th>선택한 책</th>	
 		<td>
-			<input type="text" id="choicebook" name="choicebook" value="" readonly="readonly">
+			<input class="form-control form-control-sm" type="text" id="choicebook" name="choicebook" value="" readonly="readonly">
 			<input type="hidden" id="choicebooknum" name="choicebooknum" value="">		
 		</td>
 		</tr>
 		
 		<tr>	
+		
 		<th>검색</th>	
 		<td>
-			<div class="input-group mb-3">
-		<select id="searchTitle" class="form-control">
-	    	<option value="title">책제목</option>
-			<option value="author">책저자</option>
-	  	</select>
-	    <input type="text" class="form-control" id="searchText" value="<%=searchText %>" placeholder="검색">
-	    <div class="input-group-append">
-	    	<button class= "btn" type="button" onclick="searchBook()"><i class="fa fa-search" aria-hidden="true"></i></button>
-	     </div>
-	</div>
+			<div class="input-group mb-3 ">
+				<select id="searchTitle" class="form-control form-control-sm">
+			    	<option value="title">책제목</option>
+					<option value="author">책저자</option>
+			  	</select>
+			    <input type="text" class="form-control form-control-sm"" id="searchText" value="<%=searchText %>" placeholder="검색">
+			    <div class="input-group-append">
+			    	<button class= "btn btn-sm" type="button" onclick="searchBook()"><i class="fa fa-search" aria-hidden="true"></i></button>
+			     </div>
+			</div>
 		</td>
 		</tr>	
 		<tr>
 			<td colspan="2">
-				<input class= "btn pull-right" type="button" id="addschedule" value="일정추가">
+				<input class= "btn pull-right form-control-sm"" type="button" id="canceladd" value="취소">
+				<input class= "btn pull-right form-control-sm"" type="button" id="addschedule" value="일정추가">
 			</td>
 		</tr>
 	</table>
 </form>
+</div>
 	
 	
 	
@@ -276,7 +292,7 @@ function goPage(pageNumber){
 	let searchText = document.getElementById("searchText").value;
 
 	location.href = "schedule?param=schedulwrite&syear="+syear+ "&smonth=" +smonth + "&sday="+sday+ "&enddate=" + enddate +
-					"&searchTitle="+searchTitle+"&searchText="+searchText;
+					"&searchTitle="+searchTitle+"&searchText="+searchText+"&pageNumber="+pageNumber;
 }
 
 function choice(booktitle, booknum){
@@ -322,6 +338,10 @@ $(document).ready(function() {
 		
 		$("#frm").submit();	
 				
+	});
+	
+	$("#canceladd").click(function() {
+		location.href = "schedule?param=calendarlist&year=<%=syear %>&month=<%=smonth %>&membernum=<%=mem.getMembernum() %>"
 	});
 	
 });

@@ -71,7 +71,14 @@ public class MemberDto {
 		this.userid = userid;
 		this.auth = auth;
 	}
-
+	
+	public MemberDto(int membernum, String userid, int auth, String userimage) {
+		super();
+		this.membernum = membernum;
+		this.userid = userid;
+		this.auth = auth;
+		this.userimage = userimage;
+	}
 	public int getMembernum() {
 		return membernum;
 	}

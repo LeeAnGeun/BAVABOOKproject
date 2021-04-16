@@ -94,7 +94,14 @@
 	<url-pattern>/schedule</url-pattern>
 </servlet-mapping>
 
-
+<servlet>
+	<servlet-name>mypageUpdate</servlet-name>
+	<servlet-class>mypage.MemberUpdateLoadController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>mypageUpdate</servlet-name>
+	<url-pattern>/mypageUpdate</url-pattern>
+</servlet-mapping>
 
 
 

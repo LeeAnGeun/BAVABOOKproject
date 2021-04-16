@@ -4,12 +4,12 @@
 <%
    //세션에서 아이디 받아옴(로그인 안하면 null)
 String id = null;
-int webmanager = 3;
+int auth = 3;
 MemberDto login_Dto = null;
 if(session.getAttribute("login_Dto") != null){
    login_Dto = (MemberDto)session.getAttribute("login_Dto");
    id = login_Dto.getUserid();
-   webmanager = login_Dto.getAuth();
+   auth = login_Dto.getAuth();
 }
 //getAttribute 로 error 받기 (회원가입 실패)
 String error = (String)request.getAttribute("error");
@@ -91,7 +91,7 @@ alert("정보를 정확히 입력해주세요.");
             <div class="form-group">
                     <h3 class="join_title"><label for="pwd">비밀번호</label></h3>
                     <span class="box int_pass">
-                        <input type="text"name="pwd" id="pwd" class="int" maxlength="20">
+                        <input type="password"name="pwd" id="pwd" class="int" maxlength="20">
                         
                     </span>
                 </div>
@@ -101,19 +101,10 @@ alert("정보를 정확히 입력해주세요.");
             <div class="form-group">
                     <h3 class="join_title"><label for="pwd2">비밀번호 확인</label></h3>
                     <span class="box int_pass_check">
-                        <input type="text" name="pwd2" id="pwd2" class="int" maxlength="20">
+                        <input type="password" name="pwd2" id="pwd2" class="int" maxlength="20">
                     </span>
                 </div>
 
-            <!-- NAME -->
-           <!--  <div>
-                <h3 class="join_title"><label for="name">이름</label></h3>
-                <span class="box int_name">
-                    <input type="text" id="name" class="int" maxlength="20">
-                </span>
-                <span class="error_next_box"></span>
-            </div>
- -->
             <!-- BIRTH -->
             <div class="form-group">
                 <h3 class="join_title"><label for="yy">생년월일</label></h3>
@@ -121,29 +112,38 @@ alert("정보를 정확히 입력해주세요.");
                 <div id="bir_wrap">
                     <!-- BIRTH_YY -->
                     <div id="bir_yy">
-                        <span class="box">
-                            <input type="text" id="yy" name="yy" class="int" maxlength="4" placeholder="년(4자)">
+                  	  <span class="box">
+                               <select type="text" id="yy" name="yy" class="int" >
+                               <%for(int i=1970;i<2022;i++) { %>
+                                  <option value="<%=i%>"><%=i %></option>
+                               <%} %>   
+                               </select>
                         </span>
                     </div>
 
                     <!-- BIRTH_MM -->
                     <div id="bir_mm">
                             <span class="box">
-                                <input type="text" name="mm" id="mm"  class="int" maxlength="2" placeholder="월">
+                                   <select type="text"  name="mm" id="mm"  class="int" onchange="checkDay(this)">
+                               <%for(int i=1;i<13;i++) { %>
+                                  <option value="<%=i%>"><%=i %></option>
+                               <%} %>   
+                               </select>
                             </span>
                        </div>
 
                     <!-- BIRTH_DD -->
                     <div id="bir_dd">
-                        <span class="box">
-                            <input type="text" id="dd" name="dd" class="int" maxlength="2" placeholder="일">
+                         <span class="box">
+                        <select type="text"   id="dd" name="dd" class="int" >
+                               <%for(int i=1;i<32;i++) { %>
+                                  <option value="<%=i%>"><%=i %></option>
+                               <%} %>   
+                           </select>
+                           
                         </span>
                     </div>
-
-                </div>
-               <!--  <span class="error_next_box"></span>    --> 
-            </div>
-
+            </div>  
             <!-- GENDER -->
             <div>
                 <h3 class="join_title"><label for="gender">성별</label></h3>
@@ -161,7 +161,8 @@ alert("정보를 정확히 입력해주세요.");
                <div class="form-group">
                     <h3 class="join_title"><label for="email">이메일</label></h3>
                     <span class="box int_btn">
-                        <input type="text" name="email" id="email" class="int" maxlength="100" placeholder="이메일 입력">
+                        <input type="text" name="email" id="email" class="int" maxlength="100" placeholder="이메일 입력"
+                        	onkeyup="this.value=this.value.replace(/[^a-zA-Z-_0-9_@_.]/g,'');">
                      </span>
 					<span>
                        <input type="button" class="btnR" id="email_ch" value="중복체크" onclick="emailcheck()">
@@ -173,9 +174,7 @@ alert("정보를 정확히 입력해주세요.");
             <div class="form-group">
                     <h3 class="join_title"><label for="phone">휴대전화</label></h3>
                     <span class="box int_mobile">
-                        <input type="tel" name="phone" id="phone" class="int" maxlength="16" placeholder="전화번호 입력">
-
-                       <div id="ptext3"></div>
+                        <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="phone" id="phone" class="int" maxlength="11" placeholder="전화번호 입력">
 
                     </span> 
                 </div>
@@ -191,20 +190,10 @@ alert("정보를 정확히 입력해주세요.");
        </form>
     </div>
 
-            
-
-        <!-- content-->
-
-
-<!-- sweetalert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- cookie 아이디저장 -->
 <script src="http://lab.alexcican.com/set_cookies/cookie.js" type="text/javascript" ></script>   
 
-
-
-        
-        <!-- 회원가입 관련 체크시작 -->
+<!-- 회원가입 관련 체크시작 -->
 <script type="text/javascript">
 function idcheck() {
    $.ajax({
@@ -302,6 +291,10 @@ function checkValue() {
        alert('올바른 이메일 형식이 아닙니다.');
        return false;
    }
+   if($('#input_img').val() == "") {
+	      alert("첨부파일은 필수!");
+	      return false;
+	}
 }
 </script>
 <!-- 회원가입 체크 끝 -->
@@ -326,6 +319,26 @@ function handleImgFileSelect(e) {
         reader.readAsDataURL(f);
     });
 }
+
+function checkDay(send){
+	   var day = 0;
+	   var html = ""
+	   if(send.value % 2 == 1){
+	      day = 31;
+	   }
+	   if(send.value % 2 == 0){
+	      day = 30;
+	   }
+	   if(send.value == 2){
+	      day = 28
+	   }
+	   for(var i=1;i<=day;i++){
+	      html += "<option value='"+i+"'>"+i+"</option>"
+	   }
+	   $("#dd").append(html)
+}
+
+
 </script>
 
     </body>

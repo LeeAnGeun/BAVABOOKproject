@@ -8,6 +8,7 @@ public class CardDto {
    private String cardend;
    private int booknum;
    private int clubseq;
+   private String bookimg;
    
    public CardDto() {
    }
@@ -22,8 +23,40 @@ public class CardDto {
       this.booknum = booknum;
       this.clubseq = clubseq;
    }
- 
-   public int getCardseq() {
+   
+      
+   public CardDto(int cardseq, String cardtitle, String cardtext, String cardstart, String cardend, int booknum,int clubseq, String bookimg) {
+	super();
+	this.cardseq = cardseq;
+	this.cardtitle = cardtitle;
+	this.cardtext = cardtext;
+	this.cardstart = cardstart;
+	this.cardend = cardend;
+	this.booknum = booknum;
+	this.clubseq = clubseq;
+	this.bookimg = bookimg;
+}
+
+public CardDto(int cardseq, String cardtitle, String cardtext, String cardstart, String cardend, String bookimg, int clubseq) {
+	super();
+	this.cardseq = cardseq;
+	this.cardtitle = cardtitle;
+	this.cardtext = cardtext;
+	this.cardstart = cardstart;
+	this.cardend = cardend;
+	this.bookimg = bookimg;
+	this.clubseq = clubseq;
+}
+
+public String getBookimg() {
+	return bookimg;
+}
+
+public void setBookimg(String bookimg) {
+	this.bookimg = bookimg;
+}
+
+public int getCardseq() {
       return cardseq;
    }
 
@@ -80,11 +113,13 @@ public class CardDto {
       this.cardtext = cardtext;
    }
 
-   @Override
-   public String toString() {
-      return "CardDto [cardseq=" + cardseq + ", cardtitle=" + cardtitle + ", cardtext=" + cardtext + ", cardstart="
-            + cardstart + ", cardend=" + cardend + ", booknum=" + booknum + ", clubseq=" + clubseq + "]";
-   }
+@Override
+public String toString() {
+	return "CardDto [cardseq=" + cardseq + ", cardtitle=" + cardtitle + ", cardtext=" + cardtext + ", cardstart="
+			+ cardstart + ", cardend=" + cardend + ", booknum=" + booknum + ", clubseq=" + clubseq + ", bookimg="
+			+ bookimg + "]";
+}
+
 
 
    

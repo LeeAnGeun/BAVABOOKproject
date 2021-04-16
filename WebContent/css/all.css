@@ -1,20 +1,18 @@
 @charset "UTF-8";
 
-
 /* 폰트 */
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-@import url('https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700');
+/* 로고 */
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+/* 한글 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap');
+/* 영어 */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
+*,h1,h2,h3,h4,h5,h6,p{font-family:Noto Serif KR;}
+.Ubuntu{font-family:Ubuntu ital;}
+.Fugaz{font-family:Fugaz One, cursive;}
 
-:root{ 
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-*{font-family:Fugaz One, cursive;
- font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";}
 
 /* 네비바 색 */
 #mainNav.navbar-shrink .navbar-nav .nav-item .nav-link{
@@ -36,6 +34,28 @@
 #mainNav.navbar-shrink .navbar-brand {
   font-size: 1.7em; color: #ab896e;
 }
+/* .dropdown:hover > .dropdown-menu{display: block;} */
+
+/* a링크 */
+footer a, a {
+  color: #ab896e;
+  text-decoration: none;
+  background-color: transparent;
+}
+footer a:hover,a:hover {
+  color: #4b4b49;
+  text-decoration: none;
+}
+.left-link:hover, .left-active{
+  border-left: solid #e9974d 3px;
+  font-weight: bold;
+}
+
+
+/* 드래그 색 */
+::selection {
+  background: #A88E7C;
+}
 
 /* 메인버튼 */
 .btn-main{
@@ -51,7 +71,7 @@
 /* 검색 */
 .btn-search{
   background: #f2f2f2;
-  color: #696969;
+  color:  #e9974d;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   position: relative;
@@ -59,8 +79,7 @@
 }
 .btn-search:hover{
   background: #e9974d;
-  color: #fff;
-  transition: background-color 0.3s linear;
+  color: #f2f2f2;
 }
 input.search{
   border-radius: 0;
@@ -76,3 +95,48 @@ input.search{
   border-bottom-right-radius: 0;
   border: 1px solid #E8E8E8;
 }
+.btn:focus, .btn:active,
+textarea:focus, #chat textarea:active{
+  outline: 0;
+  box-shadow: 0 0 0 0 0;
+}
+
+/* 소제목 */
+.Sheader{
+   margin-bottom: 40px;
+   height:80px;
+   border-left: 4px solid #e8974c;
+   padding-left: 10px;
+   margin-bottom: 50px;
+}
+.Sheader  a{ text-decoration: none;}
+.Sheader a h2{
+   color: #4b4b49;   
+   font-size: 20pt;
+   font-weight: 700;
+}
+.Sheader p{
+   margin-top:5px;
+   color: #4b4b49;   
+   font-size: 11pt;
+   font-weight: 400;
+   font-style: italic;
+}
+
+
+/* 페이지번호 */
+.btn-page{
+  background-color: #e8d3c1;
+  color: #f1edea;
+  border: 1px solid #f1edea;
+  border-radius:10%;
+  padding-top: 3px;
+}
+.btn-page:hover,.btn-page:active,.btn-page:focus{
+  background-color: #f1edea;
+  border-color: #f1edea;
+  color:#4b4b49;
+  outline: none;
+}
+.form-control:focus,.btn:active{border-color: #ab906e;}
+

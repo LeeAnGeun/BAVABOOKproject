@@ -8,15 +8,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 </style>
 
-
+/*유저 이미지 설정 */
 
 
 /* book 설정*/
 
-.headBook{
-   font-weight: 600;
-   
-}
+
 
 .service img{
    /* box-shadow: 0px 10px 30px 5px rgb(0 0 0 / 15%); */
@@ -293,9 +290,9 @@
 
 .gtco-testimonial{
      border-top: 1px solid #e8d3c1;
-     padding-top:20px;
-     margin-top: 30px;
-     margin-bottom: 40px; 
+     padding-top:15px;
+     margin-top: 20px;
+     margin-bottom:70px; 
    
 }
 
@@ -306,18 +303,27 @@
   width: 100px;
    
 }
+.gtco-testimonial .starImg{
+	width: 90px;
+	
+}
+ .gtco-testimonial .userImg{
+  	margin-left:10px;
+	height: 70px;
+	border: 3px solid #f5f5f5;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-khtml-border-radius: 50%;
+	-webkit-order-radius: 50%;
 
-.gtco-testimonial > div img{
-  webkit-border-radius: 50%;
+  /* webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   border-radius: 50%;
   max-width: 100% !important;
-  width: 100%;
-}
-..gtco-testimonial > div{
-   
-}
+  width: 100%; */
+} 
+
 
 .gtco-testimonial > blockquote {
   padding-left: 20px;

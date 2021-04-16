@@ -21,7 +21,7 @@ if(ologin == null){ // 로그인 세션이 없을경우
 mem = (MemberDto)ologin;
 %> 
  
-<!-- 회원정보가져오기     -->
+<!-- 회원정보가져오기    -->
 <%
 MemberDto memberdto = (MemberDto)(request.getAttribute("memberdto"));
 System.out.println("memberdto = " + memberdto);
@@ -67,6 +67,7 @@ int clubPage = Integer.parseInt(sclubPage);
 int clubpageNumber = Integer.parseInt(sclubpageNumber);
 System.out.println("mypage.jsp Come in!!! clubPage "+clubPage+" clubpageNumber "+clubpageNumber);
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,9 +81,10 @@ System.out.println("mypage.jsp Come in!!! clubPage "+clubPage+" clubpageNumber "
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="css/main.css">
+
 <link rel="stylesheet" href="css/mypage_profile.css">
 <link rel="stylesheet" href="css/mypage_total.css">
+<link rel="stylesheet" href="css/all.css">
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <script type="text/javascript">
@@ -98,22 +100,31 @@ $(document).ready(function() {
 });
 </script>
 </head>
-<body >
+<body>
 
-<header style="height: 60px"></header>
+<header style="height: 5em">
+</header>
+
 
 <div class="container totalcontent">
+
+<div class="animate__animated animate__fadeIn" style="height:65px;border-left:4px solid #e8974c;padding-left:25px; margin-bottom: 45px;margin-top:20px;">
+   <h2 style="font-weight: 700">내 서재</h2>
+   <p style="font-style: italic;">wishlist와 readlist를 볼 수 있습니다.</p>
+</div>
+
 	<div class="row">
-		<div class=" col-sm-7 wishAndsearch" >
-			
+		<div class=" col-sm-8 wishAndsearch" >
+		
+		<div style="margin:0 0 -20px 20px;background-color:#e8974c;width: 170px;height: 43px;border-top-left-radius: 7px;border-top-right-radius: 10px;padding-left: 11px">
+			<span style="font-size: 20pt;font-weight: 600;color:#f5f5f5;">WISH LIST</span>
+		</div>
+
 		<!----------------------------------wishlist-----------------------------wishlist-----------------------------wishlist---------------------------------wishlist-------------------------->
-			<div class="wishlist">
-			<!-- <img alt="second"  src="./img/wood.PNG"> -->
-				<table class="booklisttable">
-					<col width="100"><col width="100"><col width="100"><col width="100"><col width="100">
-					<tr>
-					   <th colspan="5" style="font-size: 20pt;">Wish List</th>
-					</tr>
+			<div class="wishlist" >
+				<table class="bookWishtable" style="background-image: url('./img/pastel.jpg');opacity: 0.7">
+					<col width="80"><col width="80"><col width="80"><col width="80"><col width="80">
+					
 					<%
 						if(wishlist == null || wishlist.size() == 0){ // 저장된 게시물이 없을 경우
 						   %>
@@ -121,25 +132,27 @@ $(document).ready(function() {
 						  <!-- 검색값이 없을때 디폴트 이미지 가져옴 -->
 						  
 						  <tr>
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td> 
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						      <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td> 
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
 						  </tr>
 						  <tr>
-						  <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
+						  <td class="bookshelftd"  colspan="5">
+						  	<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
 						  </td>
 						  </tr>
 						  <tr>
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						     <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						      <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+						     <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+						      <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
 						  </tr>
 						  <tr>
-						  <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
+						  <td class="bookshelftd"  colspan="5">
+						  <img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
 						  </td>
 						  </tr>
 						  
@@ -156,19 +169,22 @@ $(document).ready(function() {
 			    	   
 					 System.out.println("wishlistsize = " + readlist.size());
 					   BookDto wishdto = wishlist.get(i);
+					   
 					   %>
 					  <td  class="booktd">
-					   <img class="service" src="img/hana.JPG" height="120" width="90">
-					      <%-- <%=readdto.getBooktitle() %>  --%>
+					  <a href="book?param=bookdetail&booknum=<%=wishdto.getBooknum() %>&membernum=<%=membernum %>">
+					   <img class="service" src="./upload/<%=wishdto.getBookimage() %>" height="120" width="90">
+					  </a>
 					  </td>
 					  
-					  <%
+					  <%					
 					  if( (i+1) % 5 == 0 && i > 1){
 					%>
 									</tr>
 									 <tr>
-									 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						        	 </td>
+									 <td class="bookshelftd"  colspan="5">
+						  			<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+									  </td>
 						        	 </tr>
 						        	<tr>
 					<% 	     
@@ -193,23 +209,25 @@ $(document).ready(function() {
 							
 							 for(int i=0; i<bookcount; i++){
 						    
-						     BookDto wishdto = wishlist.get(i);				
-							
+						     BookDto wishdto = wishlist.get(i);		
+						     						     
 							 %> 
 							 
 							 
 							  <td class="booktd">
-							      <%-- <%=wishdto.getBooktitle() %>  --%>
-							      <img class="service" src="img/hana.JPG" height="120" width="90">
+							     <a href="book?param=bookdetail&booknum=<%=wishdto.getBooknum() %>&membernum=<%=membernum %>">
+							      <img class="service" src="./upload/<%=wishdto.getBookimage() %> " height="120" width="90">
+							      </a>
 							  </td>
 							  <%
-							  
+						     
 							  if((i+1) % 5 == 0 && i > 1){
 								  %>
 								  </tr>
 								  <tr>
-								  <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						          </td>
+								  <td class="bookshelftd"  colspan="5">
+						  			<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						  		  </td>
 								  </tr>
 								  
 								  <% 
@@ -218,14 +236,15 @@ $(document).ready(function() {
 							 
 							 for(int i=0; i<backcount; i++){
 								 %>
-								 <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td> 
+								 <td  class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td> 
 								 <% 
 							 }
 							 %>
 							    </tr>
 								 <tr>
-								 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-					        	 </td>
+								 <td class="bookshelftd"  colspan="5">
+						  		<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						  		</td>
 					        	 </tr>
 					        	 <tr>
 							  <% 
@@ -234,21 +253,23 @@ $(document).ready(function() {
 							/* 뒤의 책 개수가 5인경우 */
 							if(backcount==5){
 								 for(int i=0; i<bookcount; i++){
-									 BookDto wishdto = wishlist.get(i);
+									 BookDto wishdto = wishlist.get(i);	 
 									 %>
 									 
 									  <td class="booktd">
-									      <%-- <%=wishdto.getBooktitle() %> --%> 
-									      <img class="service" src="img/hana.JPG" height="120" width="90">
+									      <a href="book?param=bookdetail&booknum=<%=wishdto.getBooknum() %>&membernum=<%=membernum %>"> 
+									      <img class="service" src="./upload/<%=wishdto.getBookimage() %>" height="120" width="90">
+									      </a>
 									  </td>
 									  <%
-									  
+									 
 									  if((i+1) % 5 == 0 && i > 1){
 										  %> 
 										  </tr>
 										  <tr>
-										  <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						        		  </td>
+										  <td class="bookshelftd"  colspan="5">
+						  					<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						  					</td>
 						  				   </tr> 
 									  <% 
 									  }
@@ -256,14 +277,15 @@ $(document).ready(function() {
 									 
 									 for(int i=0; i<backcount; i++){
 										 %>
-										  <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+										  <td  class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
 										 <%  
 									 }
 									 %> 
 									  </tr>
 									 <tr>
-									 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						        	 </td>
+									 <td class="bookshelftd"  colspan="5">
+						  			<img src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						  			</td>
 						        	 </tr>
 						        	 <tr>
 								  <% 
@@ -273,21 +295,22 @@ $(document).ready(function() {
 							/* 뒤의 책 개수가 5보다 큰 경우 */		
 							if(backcount>5){
 								 for(int i=0; i<bookcount; i++){
-									 BookDto wishdto = wishlist.get(i);
-									 
+									 BookDto wishdto = wishlist.get(i);			
 									%>			 
 									  <td  class="booktd">
-									      <%-- <%=wishdto.getBooktitle() %> --%> 
-									      <img class="service" src="img/hana.JPG" height="120" width="90">
+									      <a href="book?param=bookdetail&booknum=<%=wishdto.getBooknum() %>&membernum=<%=membernum %>">
+									      <img class="service" src="./upload/<%=wishdto.getBookimage() %>" height="120" width="90">
+									      </a>
 									  </td>
 									  
-									  <% 
+									  <%  
 									  if((i+1)%5==0 && i>1){
 									  %>
 										  </tr>
 										  <tr>
-										 <td class="bookshelftd" colspan="5" background="./img/line.PNG">
-						        		 </td>
+										 <td class="bookshelftd"  colspan="5">
+						  				<img src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						  				</td>
 						        		</tr>
 						        		<tr>
 									<%
@@ -299,22 +322,23 @@ $(document).ready(function() {
 									 for(int i=0; i<backcount-5; i++){
 										 %>
 									 
-										 <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+										 <td  class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
 										 
 										 <%
 									 }
 									 %>
 									 </tr>
 									 <tr>
-									 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						        	 </td>
+									 <td class="bookshelftd"  colspan="5">
+						  			<img src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						  			</td>
 						        	 </tr>
 						        	 <tr>
 		                             <%  
 									 for(int i=0; i<5; i++){
 										 
 										 %>
-										 <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td> 
+										 <td  class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td> 
 										 
 										 <%
 									 }
@@ -322,8 +346,9 @@ $(document).ready(function() {
 									 </tr>
 									  
 									 <tr>
-									 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						        	 </td>
+									 <td class="bookshelftd"  colspan="5">
+						  			<img src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						  			</td>
 						        	 </tr>
 						        	 <tr>
 	                                <% 
@@ -375,39 +400,52 @@ $(document).ready(function() {
 			
 				
 			<!----------------------------------READLIST-----------------------READLIST----------------------------READLIST------------------------READLIST------------------READLIST----------->
+		
+		<div style="margin:30px 0 -20px 20px;background-color:#ab896e;width: 170px;height: 43px;border-top-left-radius: 7px;border-top-right-radius: 10px;padding-left: 11px">
+			<span style="font-size: 20pt;font-weight: 600;color:#f5f5f5;">READ LIST</span>
+		</div>
+		
+			
 			<div class="wishlist">
-				<table class="booklisttable">
-					<col width="100"><col width="100"><col width="100"><col width="100"><col width="100">
-					<tr>
-					   <th colspan="5" style="font-size: 20pt">Read List</th>
-					</tr>
+				<table class="bookReadtable" style="background-image: url('./img/pastel2.jpg');opacity: 0.7">
+					<col width="80"><col width="80"><col width="80"><col width="80"><col width="80">
+					
 					<%
 						if(readlist == null || readlist.size() == 0){ // 저장된 게시물으 없을 경우
+							
 						   %>
 						  
 						  <!-- 검색값이 없을때 디폴트 이미지 가져옴 -->
 						  <tr>
-						      <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						       <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						        <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						         <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						          <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+						  	  <%
+							  for(int i=0;i<5;i++){
+							  %>
+							      <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90" style="padding-bottom: -20px;"></td>
+							   <%
+							  }
+							  %>   
 						  </tr>
 						   <tr>
-						  <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
+						  <td class="bookshelftd"  colspan="5">
+						  	<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
 						  </td>
 						  </tr>
-						  <tr>
-						      <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						       <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						        <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						         <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
-						          <td class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+						   
+						 <tr>
+						  	  <%
+							  for(int i=0;i<5;i++){
+							  %>
+							      <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
+							   <%
+							  }
+							  %>   
 						  </tr>
-						  <tr>
-						  <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
+						   <tr>
+						  <td class="bookshelftd"  colspan="5">
+						  	<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
 						  </td>
 						  </tr>
+						  
 						  <%   
 						}else{ // 저장된 게시물이 있을 경우
 						   %>
@@ -420,19 +458,23 @@ $(document).ready(function() {
 			    	   
 					 System.out.println("readlistSIZE = " + wishlist.size());
 					   BookDto readdto = readlist.get(i);
+					   	
 					   %>
 					  <td  class="booktd">
-					   <img class="service" src="img/hana.JPG" height="120" width="90">
-					     <%--  <%=wishdto.getBooktitle() %>  --%>
+					   <a href="book?param=bookdetail&booknum=<%=readdto.getBooknum() %>&membernum=<%=membernum %>">
+					   <img class="service" src="./upload/<%=readdto.getBookimage() %>" height="120" width="90">
+					    </a>
 					  </td>
 					  
 					  <%
+					   
 					  if( (i+1) % 5 == 0 && i > 1){
 					%>
 						     </tr> 
 						     <tr>
-						      <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						      </td>
+						      <td class="bookshelftd"  colspan="5">
+						  		<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 	 </td>
 						     </tr>
 						     <tr>
 					<% 	     
@@ -459,20 +501,23 @@ $(document).ready(function() {
 							
 							 for(int i=0; i<bookcount; i++){
 						     BookDto readdto = readlist.get(i);
+						     
 							 %>
 							 
 							  <td  class="booktd">
-							      <%-- <%=readdto.getBooktitle() %>  --%>
-							      <img class="service" src="img/hana.JPG" height="120" width="90">
+							      <a href="book?param=bookdetail&booknum=<%=readdto.getBooknum() %>&membernum=<%=membernum %>">
+							      <img class="service" src="./upload/<%=readdto.getBookimage() %>" height="120" width="90">
+							      </a>
 							  </td>
 							  <%
-							  
+						     
 							  if((i+1) % 5 == 0 && i > 1){
 								  %>
 								    </tr>
 									 <tr>
-									 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-						        	 </td>
+									 <td class="bookshelftd"  colspan="5">
+						  			<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 			 </td>
 						        	 </tr>
 						        	 <tr>
 								  <% 
@@ -481,14 +526,15 @@ $(document).ready(function() {
 							 
 							 for(int i=0; i<backcount; i++){
 								 %>
-								 <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td> 
+								 <td  class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td> 
 								 <% 
 							 }
 							 %>
 							    </tr>
 								 <tr>
-								 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-					        	 </td>
+								 <td class="bookshelftd"  colspan="5">
+						  			<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 		</td>
 					        	 </tr>
 					        	 <tr>
 							  <% 
@@ -498,20 +544,23 @@ $(document).ready(function() {
 						if(backcount==5){
 							 for(int i=0; i<bookcount; i++){
 								 BookDto readdto = readlist.get(i);
+								 
 								 %>
 								 
 								  <td class="booktd">
-								      <%-- <%=wishdto.getBooktitle() %> --%> 
-								      <img class="service" src="img/hana.JPG" height="120" width="90">
+								       <a href="book?param=bookdetail&booknum=<%=readdto.getBooknum() %>&membernum=<%=membernum %>">
+								      <img class="service" src="./upload/<%=readdto.getBookimage() %>" height="120" width="90">
+								      </a>
 								  </td>
 								  <%
-								  
+								 
 								  if((i+1) % 5 == 0 && i > 1){
 									  %> 
 									  </tr>
 									  <tr>
-									  <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-					        		  </td>
+									  <td class="bookshelftd"  colspan="5">
+						  				<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 			  </td>
 					  				   </tr> 
 								  <% 
 								  }
@@ -519,30 +568,39 @@ $(document).ready(function() {
 								 
 								 for(int i=0; i<backcount; i++){
 									 %>
-									  <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+									  <td  class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
 									 <%  
-								 }
-							
+								 } %>
+								  <tr>
+									  <td class="bookshelftd"  colspan="5">
+						  				<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 			  </td>
+					  				   </tr>
+								 <%
+								
 							}
 						
 						/* 뒤의 책 개수가 5보다 큰 경우 */				
 						if(backcount>5){
 							 for(int i=0; i<bookcount; i++){
 								 BookDto readdto = readlist.get(i);
-								 
+									
 								%>			 
 								  <td  class="booktd">
-								      <%-- <%=readdto.getBooktitle() %> --%> 
-								      <img class="service" src="img/hana.JPG" height="120" width="90">
+								      <a href="book?param=bookdetail&booknum=<%=readdto.getBooknum() %>&membernum=<%=membernum %>">
+								      <img class="service" src="./upload/<%=readdto.getBookimage() %>" height="120" width="90">
+								      </a>
 								  </td>
 								  
 								  <% 
+								 
 								  if((i+1)%5==0 && i>1){
 								  %>
 									  </tr>
 									  <tr>
-									 <td class="bookshelftd" colspan="5" background="./img/line.PNG">
-					        		 </td>
+									 <td class="bookshelftd"  colspan="5">
+						  				<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 			  </td>
 					        		</tr>
 					        		<tr>
 								<%
@@ -554,22 +612,23 @@ $(document).ready(function() {
 								 for(int i=0; i<backcount-5; i++){
 									 %>
 								 
-									 <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td>
+									 <td class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td>
 									 
 									 <%
 								 }
 								 %>
 								 </tr>
 								 <tr>
-								 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-					        	 </td>
+								 <td class="bookshelftd"  colspan="5">
+						  			<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 		</td>
 					        	 </tr>
 					        	 <tr>
 	                             <%  
 								 for(int i=0; i<5; i++){
 									 
 									 %>
-									 <td  class="booktd"><img src="./img/emptybook.png" height="120" width="90"></td> 
+									 <td  class="booktd"><img src="./img/noneBook1.png" height="120" width="90"></td> 
 									 
 									 <%
 								 }
@@ -577,8 +636,9 @@ $(document).ready(function() {
 								 </tr>
 								  
 								 <tr>
-								 <td class="bookshelftd"  colspan="5" background="./img/line.PNG">
-					        	 </td>
+								 <td class="bookshelftd"  colspan="5">
+						  			<img  src="./img/shelf_Under.png"  style="width:650px;filter: brightness(98%);">
+						 		</td>
 					        	 </tr>
 					        	 <tr>
                                <% 
@@ -608,12 +668,13 @@ $(document).ready(function() {
 										%>
 										<button type="button" class="btn" onclick="goPage(<%=wishpageNumber %> , <%=i %>, <%=clubpageNumber %>, <%=membernum %>)"><%=i+1 %></button>
 										<%
-				    	 				}
+										}
 										else{
 										%>
 											<button type="button" class="btn" onclick="goPage(<%=wishpageNumber %> , <%=i %>, <%=clubpageNumber %>, <%=membernum %>)"><%=i+1 %></button>
 										<%
 										}
+										
 									}
 									%>
 								</div>
@@ -624,46 +685,37 @@ $(document).ready(function() {
 		
 				</table>
 			</div>	
-				
-				<!-- ------검색-----------검색-----------------검색-------------------검색-----------검색----------------검색-------------검색--------------검색-----------------검색--------- -->
-			<div style="margin: auto;">	
-				<form class="form-inline" action="#">
-				<select class="form-control" id="choice">
-			    	<option value="title">책제목</option>
-					<option value="author">책저자</option>
-			  	</select>
-	     		<input class="form-control" type="text" placeholder="검색" value="<%=search %>" id="search" >
-	     		<button class="btn" type="button"  onclick="searchBooks(<%=wishpageNumber %> , <%=readpageNumber %>, <%=clubpageNumber %>, <%=membernum %>)"><i class="fa fa-search" aria-hidden="true"></i></button>
-				</form> 
-			</div>	
-				
 			
 			</div>
 			
 					
 		
 		
-			<!-- 책장과 개인정보 사이에  세로로 빈공간 -->
+		<!--  책장과 개인정보 사이에  세로로 빈공간 
 		 	<div class=" col-sm-1 mr-auto">
-			</div> 
+			</div>   -->
 			
 			
 			
 		
-		<!-------------------프로필----------------------------프로필----------------------------프로필------------------------프로필------------------프로필--------프로필------------프로필------------->
+	
+		<div class=" col-sm-4 memAndclub">
 		
-		<div class=" col-sm-4 memAndclub mr-auto">
-			<div class=" member">
+		
+			<!-------------------프로필----------------------------프로필----------------------------프로필------------------------프로필------------------프로필--------프로필------------프로필------------->
+		
+
+			<div class=" member" style="width: 300px; margin: 48px 50px -10px 50px" >
 				<!-- <h2>PROFILE</h2> -->
 				<table class="profiletable">
 					<tr>
 					<td>
-							<div class="container h-100">
+							<div class="container px-0 h-100">
 								<div class="row h-100 justify-content-center align-items-center">
 									<div class="card">
 										<div class="card-header">
-											<div class="profile_pic">
-												<img src="./img/dal.ㅅjpg"> <!-- 여기에 프로필사진 -->
+											<div class="profile_pic" >
+												<img alt="" src="./upload/<%=memberdto.getUserimage() %>" onerror='this.src="./img/user_80px.jpg"'>
 											</div>
 										</div>
 										<div class="card-body">
@@ -689,54 +741,70 @@ $(document).ready(function() {
 						</tr>
 					</table>
 				</div>
+			
+				
+		<!-- ----------------검색------------------>
+				
+				<div class="searchlala input-group" style="width: 300px;margin-left: 50px">	
+				<form class="form-inline" action="#">
+				<select class="col-4 form-control" id="choice">
+			    	<option value="title">책제목</option>
+					<option value="author">책저자</option>
+			  	</select>
+	     		<input class="col-6 form-control" type="text" placeholder="search" value="<%=search %>" id="search" >
+	     		<button class="col-2 btn btn-search" type="button"  onclick="searchBooks(<%=wishpageNumber %> , <%=readpageNumber %>, <%=clubpageNumber %>, <%=membernum %>)"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+				</form> 
+			    </div>
+			    
+			    
+			    
+			    
+			    <div class='searchlulu'>
+			    </div>
 		
-		<!-- -----------------커뮤니티----------------------------커뮤니티----------------------------커뮤니티------------------------커뮤니티------------------커뮤니티------------------------ -->		
+		<!-- -----------------커뮤니티--------------->		
 					
 			<div class="clublist">
-					<table class="clublisttable" style="margin-left: auto; margin-right: auto;" id="ta"  radius="3" rborder="#999999" rbgcolor="#F8F8F8">
-					<col width="64"><col width="256">
+					<table class="clublisttable" style="margin-left:10px;" id="ta">
+					<col width="350px">
 					<tr>
-					   <th colspan="2" style="font-size: 20pt; background-color: #e8d3c1"; class="clubhead">MY CLUB</th>
+					<th style="font-size: 20pt;text-align:center; background-color: #e8d3c1;height: 60px;color:#666663">MY CLUB</th>
 					</tr>
 					
 						<%
 						if(clublist == null || clublist.size() == 0){ // 저장된 게시물으 없을 경우
 						   %>
 						 
-						  <tr>
-						     <td colspan="2" class="clubImageTd">커뮤니티 리스트가 없습니다</td>
+						  <tr >
+						     <td class="clubImageTd" >커뮤니티 리스트가 없습니다</td>
 						  </tr>
-						  <tr>
-						     <td colspan="2" class="clubImageTd">커뮤니티 리스트가 없습니다</td>
-						  </tr>
-						  <tr>
-						     <td colspan="2" class="clubImageTd">커뮤니티 리스트가 없습니다</td>
-						  </tr>
+		
 						 
 						  <%   
 						}
 						else{ // 저장된 게시물이 있을 경우
 						   %> 
 						     
-						  <tr>
+						  
 						  <% 
 								if(clublist.size()%3==0) { //클럽이 3의 배수인 경우
 								for(int i=0; i<clublist.size(); i++){
+									%>
+							    <tr class="something">		
+									<% 
 									System.out.println("clublistsize = " + clublist.size());
-									%>
+								
+									ClubDto clubdto = clublist.get(i);									
+									%>									
+									<td class="clubImageTd" onmouseover="this.style.background='#f1edea'" onmouseout="this.style.background='white'">
 									
-									<td class="clubImageTd"><a href="#"><img src="./img/people.JPG" width="70px" height="70px"></a></td>
-									
-							
-								  <td class="clubImageTd">
-									<%
-									ClubDto clubdto = clublist.get(i);
-									%>
-									
-									<%= clubdto.getClubtitle() %>
-								   	 
-								  </td>
-								   
+										<img src="./clubload/<%=clubdto.getClubimage() %>" onerror='this.src="./img/none_club.png"' width="70px" height="70px" style="float:left; background-color:grey;vertical-align:middle;" onerror='this.src="./img/user_80px.jpg"'>
+									<a href="club?param=getclubdetail&clubseq=<%=clubdto.getClubseq()  %>" style="color: #4b4b49; text-decoration: none;">	
+										<span style="margin-top: 20px"><%= clubdto.getClubtitle() %></span>
+										
+									</a>	
+								  </td>								   
 								   </tr>
 								  
 								   <%
@@ -756,9 +824,15 @@ $(document).ready(function() {
 											 for(int i=0; i<clubcount; i++){
 											 ClubDto clubdto = clublist.get(i);
 											 %>
-											 <td class="clubImageTd"><a href="#"><img src="./img/people.JPG" width="70px" height="70px"></a></td>				 
-											  <td class="clubImageTd">	  
-											      <%= clubdto.getClubtitle() %>
+											 <!-- 클럽상세페이지로 가기 -->
+											 <td class="clubImageTd" onmouseover="this.style.background='#f1edea'" onmouseout="this.style.background='white'"
+											 	onclick="location.href='club?param=getclubdetail&clubseq=<%=clubdto.getClubseq() %>'">
+											 <a href="club?param=getclubdetail&clubseq=<%=clubdto.getClubseq()  %>"  style="color: #4b4b49; text-decoration: none;" >
+												 <img src="./clubload/<%=clubdto.getClubimage() %>" onerror='this.src="./img/none_club.png"' width="70px" height="70px" style="vertical-align:middle;">
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+												 <span><%= clubdto.getClubtitle() %></span>
+			
+											 </a>				 			    
 											  </td>
 											  </tr>
 											  <%		
@@ -766,7 +840,7 @@ $(document).ready(function() {
 											 
 											 for(int i=0; i<backcount; i++){
 												 %>
-												 <td colspan="2" class="clubImageTd"></td> 
+												 <td class="clubImageTd"></td> 
 												 </tr>
 												 <% 
 											 }
@@ -783,7 +857,7 @@ $(document).ready(function() {
 						<tr>
 						<td colspan="2" class="searchpagingarea">
 							           
-								<div class="btn-toolbar paging justify-content-center" role="toolbar" aria-label="Toolbar with button groups"">	
+								<div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups"">	
 								<div class="btn-group mr-2 " role="group" aria-label="First group" >
 								<%
 									for(int i = 0;i<clubPage;i++){
@@ -801,7 +875,7 @@ $(document).ready(function() {
 									%>
 								</div>
 					    	</div>
-							
+						
 						</td>
 						</tr>			
 		
@@ -809,7 +883,6 @@ $(document).ready(function() {
 			
 			</div>
 		
-		<!-- ------------------------------------------------------------------------------------------------------------------ -->			
 		</div>
 				
 	</div>

@@ -57,11 +57,11 @@ public class LoginController extends HttpServlet{
             session.setAttribute("userId", userId);
             session.setMaxInactiveInterval(30*60*60);
 
+            resp.sendRedirect("main?param=mainscreen");
             
-            resp.sendRedirect("index.jsp");
          }else {
-            req.setAttribute("error", "1"); // 로그인 실패 부분
-            resp.sendRedirect("index.jsp?content=login");
+            // req.setAttribute("error", "1"); // 로그인 실패 부분
+        	 resp.sendRedirect("main?param=mainscreen&error=1");
          }
          
          
@@ -99,7 +99,10 @@ public class LoginController extends HttpServlet{
         
         String checkId = req.getParameter("id");
          System.out.println("userid : " + checkId);
-         boolean check = dao.checkId(checkId);
+         
+         boolean check=false; //아이디 빈값 체크
+         if(checkId != "") check = dao.checkId(checkId);
+         
          String str = "NO";
          if(check == true) {
             // 아이디 중복시
@@ -119,7 +122,10 @@ public class LoginController extends HttpServlet{
          LoginDao dao = LoginDao.getInstance();
          String checkEmail = req.getParameter("email");
          System.out.println("email : " + checkEmail);
-         boolean check = dao.CheckEmail(checkEmail);
+         
+         boolean check=false; //이메일 빈값 체크
+         if(checkEmail != "") check = dao.checkId(checkEmail);
+         
          String str = "NO";
           if(check == true) {
              // 아이디 중복시
@@ -170,7 +176,7 @@ public class LoginController extends HttpServlet{
        }else if(param.equals("logoutPro")) {
            HttpSession session = req.getSession();
            session.invalidate();
-           resp.sendRedirect("index.jsp?content=home");
+           resp.sendRedirect("main?param=mainscreen");
         }
         
      }

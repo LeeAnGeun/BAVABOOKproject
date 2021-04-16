@@ -82,16 +82,16 @@ public class ScheduleController extends HttpServlet{
 			
 			// image 설정
 			// <<  	year--
-			String pp = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/left2.png'></a>", "schedule?param=calendarlist", year-1, month, membernum);
+			String pp = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/leftleft.svg' style='height:35px;padding-bottom:12px'></a>", "schedule?param=calendarlist", year-1, month, membernum);
 			
 			// <	month--
-			String p = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/left1.png'></a>", "schedule?param=calendarlist", year, month-1, membernum);
+			String p = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/left.svg' style='height:35px;padding-bottom:12px'></a>", "schedule?param=calendarlist", year, month-1, membernum);
 			
 			// >	month++
-			String n = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/right1.png'></a>", "schedule?param=calendarlist", year, month+1, membernum);
+			String n = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/right.svg' style='height:35px;padding-bottom:12px'></a>", "schedule?param=calendarlist", year, month+1, membernum);
 			
 			// >>	year++
-			String nn = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/right2.png'></a>", "schedule?param=calendarlist", year+1, month, membernum);
+			String nn = String.format("<a href='%s&year=%d&month=%d&membernum=%d'><img src='img/rightright.svg' style='height:35px;padding-bottom:12px'></a>", "schedule?param=calendarlist", year+1, month, membernum);
 			
 			List<String> image = new ArrayList<String>();
 			

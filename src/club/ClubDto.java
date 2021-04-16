@@ -8,7 +8,9 @@ public class ClubDto {
 	private int membernum; // 그룹장 번호
 	private String userid;
 	private String clubimage;
-	
+	private int talksum; //카드별 토크갯수, 활동순위볼때 필요 
+	private int membersum;
+
 	public ClubDto() {
 	}
 
@@ -21,7 +23,7 @@ public class ClubDto {
 		this.membernum = membernum;
 		this.clubimage = clubimage;
 	}
-	
+	//맴버 번호 말고 아이디 받는
 	public ClubDto(int clubseq, String clubtitle, String clubtext, String clubdate, String userid, String clubimage) {
 		super();
 		this.clubseq = clubseq;
@@ -49,11 +51,31 @@ public class ClubDto {
 		this.membernum = membernum;
 		this.clubimage = clubimage;
 	}
+	//CL.CLUBSEQ, CL.CLUBTITLE, AL.BOOKNUM, AL.TALKSUM 
+	//책에서 책에 해당하는 클럽불러올때
+	public ClubDto(int clubseq, String clubtitle, int talksum) {
+		super();
+		this.clubseq = clubseq;
+		this.clubtitle = clubtitle;
+		this.talksum = talksum;
+	}
 	
+	public ClubDto(int clubseq, String clubtitle, String clubtext, String clubdate, int membernum, String clubimage,
+			int membersum) {
+		super();
+		this.clubseq = clubseq;
+		this.clubtitle = clubtitle;
+		this.clubtext = clubtext;
+		this.clubdate = clubdate;
+		this.membernum = membernum;
+		this.userid = userid;
+		this.clubimage = clubimage;
+		this.membersum = membersum;
+	}
+
 	public String getUserid() {
 		return userid;
 	}
-
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
@@ -104,6 +126,22 @@ public class ClubDto {
 
 	public void setClubimage(String clubimage) {
 		this.clubimage = clubimage;
+	}
+
+	public int getTalksum() {
+		return talksum;
+	}
+
+	public void setTalksum(int talksum) {
+		this.talksum = talksum;
+	}
+	
+	public int getMembersum() {
+		return membersum;
+	}
+
+	public void setMembersum(int membersum) {
+		this.membersum = membersum;
 	}
 
 	@Override

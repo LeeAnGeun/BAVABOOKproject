@@ -33,7 +33,8 @@ public class ClubController extends HttpServlet {
 		
 		ClubDao clubdao = ClubDao.getInstance();
 		String param = req.getParameter("param");
-
+		System.out.println("---------param = " + param);
+		
 		if (param.equals("clublist")) {
 			System.out.println("여기는 들어옴");
 			String search = req.getParameter("search");
@@ -73,7 +74,7 @@ public class ClubController extends HttpServlet {
 		}
 
 		// 클럽 상세화면
-		if (param.equals("getclubdetail")) {
+		else if (param.equals("getclubdetail")) {
 			System.out.println("getclubdetail");
 
 			int clubseq = Integer.parseInt(req.getParameter("clubseq"));
@@ -99,13 +100,14 @@ public class ClubController extends HttpServlet {
 		}
 
 		// 클럽수정 클럽장만!!
-		if (param.equals("updateClub")) {
+		else if (param.equals("updateClub")) {
 
 			int clubseq = Integer.parseInt(req.getParameter("clubseq"));
 			String clubtitle = req.getParameter("clubtitle");
 			String clubtext = req.getParameter("clubtext");
-			String clubimage = req.getParameter("clubimage");
-
+			//String clubimage = req.getParameter("clubimage");
+			String clubimage = "";
+			
 			ClubDto dto = new ClubDto(clubseq, clubtitle, clubtext, clubimage);
 
 			clubdao.updateClub(dto);
@@ -114,7 +116,7 @@ public class ClubController extends HttpServlet {
 		}
 
 		// 클럽생성
-		if (param.equals("addclub")) {
+		else if (param.equals("addclub")) {
 						
 			String clubtitle = req.getParameter("clubtitle");
 			String clubtext = req.getParameter("clubtext");
@@ -129,7 +131,7 @@ public class ClubController extends HttpServlet {
 		}
 		
 		//클럽가입
-		if (param.equals("joinclub")) { //클럽번호, 유저번호 필요
+		else if (param.equals("joinclub")) { //클럽번호, 유저번호 필요
 			
 			int clubseq = Integer.parseInt(req.getParameter("clubseq"));
 			int membernum = Integer.parseInt(req.getParameter("membernum"));
@@ -141,7 +143,7 @@ public class ClubController extends HttpServlet {
 		}
 		
 		// talklist 불러오기
-		if (param.equals("talklist")) {
+		else if (param.equals("talklist")) {
 			System.out.println("talklist 들어왔나?");
 
 			int cardseq = Integer.parseInt(req.getParameter("cardseq")); // 카드번호를 받아온다
@@ -152,6 +154,7 @@ public class ClubController extends HttpServlet {
 			System.out.println(talklist.toString());
 
 			CardDto card = clubdao.getCard(cardseq);
+			System.out.println(card.toString());
 
 			req.setAttribute("talklist", talklist);
 			req.setAttribute("card", card);
@@ -160,7 +163,7 @@ public class ClubController extends HttpServlet {
 		}
 
 		// 토크내용 추가
-		if (param.equals("talkadd")) {
+		else if (param.equals("talkadd")) {
 			System.out.println("talkadd");
 
 			String talkcontent = req.getParameter("talkcontent"); // 토크내용 가져옴
@@ -178,7 +181,7 @@ public class ClubController extends HttpServlet {
 		}
 		
 		// card를 추가하기 위한 준비작업
-		if(param.equals("cardadd")) {
+		else if(param.equals("cardadd")) {
 			System.out.println("cardadd");
 			
 			int clubseq = Integer.parseInt( req.getParameter("clubseq") );
@@ -233,7 +236,7 @@ public class ClubController extends HttpServlet {
 		}
 		
 		// 카드를 실제를 추가하는 부분
-		if(param.equals("cardaddAf")) {
+		else if(param.equals("cardaddAf")) {
 			int clubseq = Integer.parseInt(req.getParameter("clubseq"));
 			int booknum = Integer.parseInt(req.getParameter("choicebooknum"));
 			String cardtitle = req.getParameter("cardtitle");
@@ -249,6 +252,6 @@ public class ClubController extends HttpServlet {
 			boolean message = clubdao.addCard(dto);
 			
 			resp.sendRedirect("message.jsp?param=cardadd&message=" + message + "&clubseq=" + clubseq);
-		}
+		}		
 	}
 }

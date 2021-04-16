@@ -1,5 +1,21 @@
+<%@page import="login.MemberDto"%>
+<%@page import="club.ClubDto"%>
+<%@page import="book.BookDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+List<BookDto> newBooklist = (List<BookDto>)request.getAttribute("newBooklist");				// 신작
+List<BookDto> bestBooklist = (List<BookDto>)request.getAttribute("bestBooklist");			// 이달의 책
+List<ClubDto> bestClublist = (List<ClubDto>)request.getAttribute("bestClublist");			// 시끌벅적 소모임
+List<MemberDto> bestMemberlist = (List<MemberDto>)request.getAttribute("bestMemberlist");	// 활발히 활동한 사용자
+
+System.out.println("newBooklist = " + newBooklist.toString() );
+System.out.println("bestBooklist = " + bestBooklist.toString() );
+System.out.println("bestClublist = " + bestClublist.toString() );
+System.out.println("bestMemberlist = " + bestMemberlist.toString() );
+%>    
+    
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +32,7 @@
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles1.css" rel="stylesheet" />
+        <link href="css/styles1.css" rel="stylesheet">
         <link rel="stylesheet" href="css/animate.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         
@@ -29,31 +45,6 @@
 
     </head>
     <body id="page-top">
-
-        <!-- Navigation-->
-        <!-- <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-            <div class="container">
-
-                <a class="navbar-brand js-scroll-trigger"  href="#page-top">BAVABOOK</a>
-                화면줄였을때 버튼
-                <button class="navbar-toggler navbar-toggler-right" type="button"
-                        data-toggle="collapse" data-target="#navbarResponsive" 
-                        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        menu
-                    <i class="fas fa-bars ml-1"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ml-auto"> fc1은 글색깔 변경 클래스
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger fc1" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger fc1" href="main?param=mainscreen">처음으로</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger fc1" href="book?param=booklist">책추천받기</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger fc1" href="club?param=clublist">소통하기</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger fc1" href="club?param=clublist">로그인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
 
         <!-- Masthead-->
         <header class="masthead">
@@ -111,38 +102,38 @@
             
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase mb-0" >이 달의 책</h2>
-                    <div style="background-color: #e9974d; height: 3px; width: 180px; margin: 5px auto 15px auto;" ></div>
-                    <h3 class="section-subheading text-muted mb-5">BAVABOOK이 추천하는 이달의 책</h3>
+                    <h2 class="section-heading text-uppercase mb-0" >BAVABOOK 선정</h2>
+                    <div style="background-color: #e9974d; height: 3px; width: 300px; margin: 5px auto 15px auto;" ></div>
+                    <h3 class="section-subheading text-muted mb-5">BAVABOOK의 따끈따근한 책</h3>
                 </div>
             </div>
             
             
-            <div class="jumbotron-fluid p-0">
+            <div class="jumbotron-fluid p-0" style="background-color: #f5f5f5;height: 650px;">
 			   <div class="maincarousel" > <!-- 메인케로셀 -->
 			      <div id="carouselSample" class="carousel slide" data-ride="carousel">
 			      
 			      <div class="carousel-inner">
 			         <!-- first slide -->
 			         <div class="carousel-item active">
-			            <div class="imgh mx-auto"><img alt="first" class="d-block" src="http://image.yes24.com/momo/scmfiles/AdvertFiles/202103/2578206_210324030109.jpg"></div>
+			            <div class="imgh mx-auto" align="center"><img alt="first" class="d-block" style="height: 600px;margin-top: 25px" src="./upload/mainBook1.png"></div>
 			         </div>
 			         <!-- second slide -->
 			         <div class="carousel-item" >
-			         	<div class="imgh mx-auto"><img alt="second" class="d-block" src="http://image.yes24.com/momo/scmfiles/AdvertFiles/202103/2575602_210303025102.jpg"></div>
+			         	<div class="imgh mx-auto" align="center"><img alt="second" class="d-block" style="height: 600px;margin-top: 25px" src="./upload/mainBook2.png"></div>
 			         </div>
 			         <!-- third slide -->
 			         <div class="carousel-item" >
-			      		 <div class="imgw mx-auto"><img alt="third" class="d-block" src="http://image.yes24.com/momo/scmfiles/AdvertFiles/202103/2644630_210315110233.jpg"></div>
+			      		 <div class="imgw mx-auto" align="center"><img alt="third" class="d-block" style="height: 600px;margin-top: 25px" src="./upload/mainBook3.png"></div>
 			         </div>
 			      </div>
 			      
 			      <!-- controller 부분 -->
-			      <a class="carousel-control-prev" href="#carouselSample" role="button" data-slide="prev" style="color: ">
-			         <span class="fa fa-chevron-left fa-3x" aria-hidden="true"></span>
+			      <a class="carousel-control-prev" href="#carouselSample" role="button" data-slide="prev" style="color:#696969; ">
+			         <span class="fa fa-chevron-left fa-4x" aria-hidden="true"></span>
 			      </a>
-			      <a class="carousel-control-next" href="#carouselSample" role="button" data-slide="next">
-			         <span class="fa fa-chevron-right fa-3x" aria-hidden="true"></span>
+			      <a class="carousel-control-next" href="#carouselSample" role="button" data-slide="next" style="color: #696969;">
+			         <span class="fa fa-chevron-right fa-4x" aria-hidden="true" ></span>
 			      </a>
 			      
 			       </div>
@@ -158,123 +149,84 @@
             <div class="container">
 
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase mb-0" >이 달의 책</h2>
+                    <h2 class="section-heading text-uppercase mb-0" >베스트셀러</h2>
                     <div style="background-color: #e9974d; height: 3px; width: 180px; margin: 5px auto 15px auto;" ></div>
                     <h3 class="section-subheading text-muted ">BAVABOOK이 추천하는 이달의 책</h3>
                 </div>
 
                 <div class="row text-center">
-
-                    <div class="col-md-3 ">
-                        
-                        <div class="col bookrankimg bimg1">
-                            <a href="club?param=getclubdetail&clubseq=" class="">
-
-                                <div class="overlay">
-                                    <h3>Fancy 3D</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-                            
-                            <img src="http://image.yes24.com/goods/98984474" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 ">
-                        <div class="col bookrankimg bimg2">
-                            <a href="club?param=getclubdetail&clubseq=">
-
-                                <div class="overlay">
-                                    <h3>Fancy 3D</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <img src="http://image.yes24.com/goods/98873912" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 ">
-                        <div class="col bookrankimg bimg3">
-                            <a href="club?param=getclubdetail&clubseq=">
-
-                                <div class="overlay">
-                                    <h3>Fancy 3D</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <img src="http://image.yes24.com/goods/98568254" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 ">
-                        <div class="col bookrankimg bimg4">
-                            <a href="club?param=getclubdetail&clubseq=">
-
-                                <div class="overlay">
-                                    <h3>Fancy 3D</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <img src="http://image.yes24.com/goods/98853711" alt="">
-                            </a>
-                        </div>
-                    </div>
-
+					<%for(int i=1;i<bestBooklist.size()+1;i++){ 
+						BookDto dto = bestBooklist.get(i-1);
+						%>
+	                    <div class="col-md-3 ">
+	                        
+	                        <div class="col bookrankimg bimg<%=i %>">
+	                            <a href="book?param=bookdetail&booknum=<%=dto.getBooknum() %>" class="">
+	
+	                                <div class="overlay">
+	                                    <h5><%=dto.getBooktitle() %></h5><br>
+	                                    <p><%=dto.getBookheader() %></p>
+	                                </div>
+	                            
+	                            <img src="./upload/<%=dto.getBookimage()%>" alt="">
+	                            </a>
+	                        </div>
+	                    </div>
+					<%} %>
                 </div>
 
             </div>
         </section>
-
+<br><br><br><br>
         <!-- 이용자 활동순위-->
         <section class="page-section" id="bestactivity">
             <div class="container" >
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase mb-0" >활발히 활동한 사용자</h2>
+                    <h2 class="section-heading text-uppercase mb-0" >활동 순위</h2>
                     <div style="background-color: #e9974d; height: 3px; width: 330px; margin: 5px auto 15px auto;" ></div>
-                    <h3 class="section-subheading text-muted mb-5">책과 관련된 활동을 가장 많이 한 사용자입니다.</h3>
+                    <h3 class="section-subheading text-muted ">책과 관련된 활동을 가장 많이 한 사용자입니다.</h3>
                 </div>
             </div>
 
-            <div class="container-fluid user-box" style="background-image: url('./img/userGradeBase.jpg');">
+            <div class="container-fluid p-0 user-box1">
                 <div class="row">
-                <div class="col-md-9">
-                        <div class="count-wrap">
-                            <div class="user-wrap pos1">
-                                <div class="userGrade"><img src="./img/userGrade1.png" alt=""></div>
-                                <h3 class="timer">627</h3>
-                            </div>
-                            <div class="user-wrap pos2">
-                                <div class="userGrade"><img src="./img/userGrade2.png" alt=""></div>
-                                <h3 class="timer">320</h3>
-                            </div>
-                            <div class="user-wrap pos3">
-                                <div class="userGrade"><img src="./img/userGrade3.png" alt=""></div>
-                                <h3 class="timer">128</h3>
-                            </div>
-                            <div class="user-wrap pos4">
-                                <div class="userGrade"><img src="./img/userGrade4.png" alt=""></div>
-                                <h3 class="timer">57</h3>
-                            </div>
-                        </div>
-                </div>
+                
+                	<div class="col-md-9 count-wrap">
+                        <div class="row user-row">
 
-                <div class="col-md-3 activerank">
-                    <div class="activerank1 por1">
-                        <h4 class="mb-3 text-left">활동별 순위</h4>
-                        <h5 class="text-muted">
-                        <ol type="1" class="text-muted pl-4">
-                            <li><p class="text-muted">유저아이디</p></li>
-                            <li><p class="text-muted">유저아이디</p></li>
-                            <li><p class="text-muted">유저아이디</p></li>
-                            <li><p class="text-muted">유저아이디</p></li>
-                        </ol>
-                        </h5>
-                    </div>
-                </div>
-                </div>
+                		<%for(int i=1; i<bestMemberlist.size()+1; i++){
+                        		MemberDto dto = bestMemberlist.get(i-1);%>
+                            <div class="col-md-3 user-box3">
+                                <div class="user-wrap pos<%=i%>">
+                                    <div style="text-align: center;">
+                                        <div class="userGrade"><img src="./img/userGrade<%=i%>.png" alt=""></div>
+                                        <h3 class="timer"><%=dto.getActivity()-1 %></h3>
+                                    </div>
+                                </div>
+                                <div class="user-box4 pbs<%=i%>"><div class="outline ac<%=i%>"><span></span><span></span></div></div>
+                            </div>
+                         <%}%>
+                            
+						</div>
+                	</div>
 
+
+	                <div class="col-md-3 user-box2 activerank por1">
+	                    <div class="activerank1">
+	                        <h3 class="mb-5 text-left">활동별 순위</h3>
+	                        <h5 class="text-muted">
+	                        <ol type="1" class="text-muted pl-4">
+	                        	<%for(int i=1; i<bestMemberlist.size()+1; i++){
+	                        		MemberDto dto = bestMemberlist.get(i-1); %>                        	
+	                            <li><p class="text-muted"><%=dto.getUserid() %></p></li>
+	                            <%}%>
+	                        </ol>
+	                        </h5>
+	                    </div>
+	                </div> <!-- 아이디 칸 -->
+                
+                
+              </div> <!-- 로우 끝 -->
             </div>
         </section>
 
@@ -284,90 +236,34 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase mb-0" >시끌벅적 소모임</h2>
                     <div style="background-color: #e9974d; height: 3px; width: 250px; margin: 5px auto 15px auto;" ></div>
-                    <h3 class="section-subheading text-muted mb-5">현재 활발히 활동중인 소모임</h3>
+                    <h3 class="section-subheading text-muted">현재 활발히 활동중인 소모임</h3>
                 </div>
 
                 <div class="row text-center">
+                	<%for(int i=1; i<5; i++){
+                    		ClubDto dto = bestClublist.get(i-1);
+                    		String sdate = dto.getClubdate();
+                    		String date = sdate.substring(0, 10);
+                    %>    
                     <div class="col-md-3">
-                         <div class="card card1">
-                            <a href="club?param=getclubdetail&clubseq="><div class="clubimg"><img src="./img/club/011.jpg" alt="" onerror="this.src='./img/club1.png'"></div></a>
+                         <div class="card card<%=i %>">
+                            <a href="club?param=getclubdetail&clubseq=<%=dto.getClubseq() %>"><div class="clubimg"><img src="./clubload/<%=dto.getClubimage() %>" alt="" onerror="this.src='./img/club1.png'"></div></a>
                             <div class="card-body text-left py-0">
-                                <p class="text-muted my-3">최근 작성일 카드 2개?</p>
-                                <a href="club?param=getclubdetail&clubseq="><h5 class="mb-4">우리 같이 토론해 보아요</h5></a>
+                                <p class="text-muted my-3" style="font-size: 14px;"><%=dto.getClubtitle() %></p>
+                                <a href="club?param=getclubdetail&clubseq=<%=dto.getClubseq() %>"><h5 class="mb-4"><%=dto.getClubtext() %></h5></a>
                             </div>
                             <div class="card-footer px-0">
-                                <div class="row mx-0 px-1">
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-user-edit"></i> 작성자</p></div>
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="far fa-calendar-minus"></i> 개설일</p></div>
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-users"></i> 맴버수</p></div>
+                                <div class="row mx-0 px-1">                                   
+                                    <div class="col-6"><p class="text-muted m-0 text-center"><i class="far fa-calendar-minus"></i> <%=date %></p></div>
+                                    <div class="col-6"><p class="text-muted m-0 text-center"><i class="fas fa-users"></i> <%=dto.getMembersum() %>명</p></div>
                                 </div>
                             </div>
-                        </div>
+                       	 </div>
                     </div>
-
-                    <div class="col-md-3">
-                        <div class="card card2">
-                           <a href="club?param=getclubdetail&clubseq="><div class="clubimg"><img src="./img/club/011.jpg" alt="" onerror="this.src='./img/club1.png'"></div></a>
-                           <div class="card-body text-left py-0">
-                               <p class="text-muted my-3">최근 작성일 카드 2개?</p>
-                               <a href="club?param=getclubdetail&clubseq="><h5 class="mb-4">우리 같이 토론해 보아요</h5></a>
-                           </div>
-                           <div class="card-footer px-0">
-                               <div class="row mx-0 px-1">
-                                   <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-user-edit"></i> 작성자</p></div>
-                                   <div class="col-4"><p class="text-muted m-0 text-center"><i class="far fa-calendar-minus"></i> 개설일</p></div>
-                                   <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-users"></i> 맴버수</p></div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-
-                   <div class="col-md-3">
-                        <div class="card card3">
-                            <a href="club?param=getclubdetail&clubseq="><div class="clubimg"><img src="./img/club/011.jpg" alt="" onerror="this.src='./img/club1.png'"></div></a>
-                            <div class="card-body text-left py-0">
-                                <p class="text-muted my-3">최근 작성일 카드 2개?</p>
-                                <a href="club?param=getclubdetail&clubseq="><h5 class="mb-4">우리 같이 토론해 보아요</h5></a>
-                            </div>
-                            <div class="card-footer px-0">
-                                <div class="row mx-0 px-1">
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-user-edit"></i> 작성자</p></div>
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="far fa-calendar-minus"></i> 개설일</p></div>
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-users"></i> 맴버수</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="card card4">
-                            <a href="club?param=getclubdetail&clubseq="><div class="clubimg"><img src="./img/club/011.jpg" alt="" onerror="this.src='./img/club1.png'"></div></a>
-                            <div class="card-body text-left py-0">
-                                <p class="text-muted my-3">최근 작성일 카드 2개?</p>
-                                <a href="club?param=getclubdetail&clubseq="><h5 class="mb-4">우리 같이 토론해 보아요</h5></a>
-                            </div>
-                            <div class="card-footer px-0">
-                                <div class="row mx-0 px-1">
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-user-edit"></i> 작성자</p></div>
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="far fa-calendar-minus"></i> 개설일</p></div>
-                                    <div class="col-4"><p class="text-muted m-0 text-center"><i class="fas fa-users"></i> 맴버수</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+					 <%} %>
 
             </div>
         </section>
-        
-        <!-- 꼬리말 -->
-        <!-- <footer>
-            <hr>
-            <div class="container mb-5" style="height: 30px;">
-                <a href="#">도움말</a> <a href="#">약관</a> <a href="#">사이트맵</a>
-            </div>
-        </footer> -->
-
 
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -384,6 +280,9 @@
         
         <script>
         $(document).ready(function(){
+        	
+            $('.carousel').carousel({interval: 3000});
+            
             $('.bookrankimg').css('opacity', 0);
             $('#bookranking').waypoint(function() {
                 $('.bookrankimg').addClass('fadeInUp');
@@ -395,10 +294,10 @@
             }, { offset: '50%' });
 
             $('.user-wrap').css('opacity', 0);
-            $('.activerank1').css('opacity', 0);
+            $('.activerank').css('opacity', 0);
             $('#bestactivity').waypoint(function() {
                 $('.user-wrap').addClass('fadeInLeft');
-                $('.activerank1').addClass('fadeInRight');
+                $('.activerank').addClass('fadeInRight');
             }, { offset: '50%' });
 
         });

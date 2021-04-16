@@ -36,7 +36,7 @@ private static MypageDao dao = new MypageDao();
         		+  "    BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
         		+ " 	AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE  " 
         		+  "    FROM MYLIBRARY M, BOOK B "
-                + "   WHERE M.WISHBOOK = B.BOOKNUM ";
+                + "   WHERE M.WISHBOOK = B.BOOKNUM  ";
         
         String sWord = "";
         if(choice.equals("title")) {
@@ -47,7 +47,7 @@ private static MypageDao dao = new MypageDao();
 	 	} 
         sql = sql + sWord;
         
-        sql += " AND M.MEMBERNUM = ? ) ";
+        sql += " AND M.MEMBERNUMFK = ? AND B.BOOKNUM > 0 ) ";
         
         sql = sql + " WHERE RNUM >= ? AND RNUM <= ? ";
         
@@ -107,15 +107,15 @@ private static MypageDao dao = new MypageDao();
 	
 	// 마이페이지 읽은 책 리스트
 	public List<BookDto> getreadList(String choice, String search, int page, int membernum ){
-		String sql = " SELECT BOOKNUMS, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
+		String sql = " SELECT BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
 				+ "		AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE, RNUM "
                 + " FROM ";
 		
-		sql += " (SELECT ROW_NUMBER()OVER(ORDER BY REVSEQ DESC) AS RNUM, " 
-        		+  "    BO.BOOKNUM AS BOOKNUMS, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
+		sql += " (SELECT ROW_NUMBER()OVER(ORDER BY WISHSEQ DESC) AS RNUM, " 
+        		+  "    BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
         		+ " 	AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE " 
-        		+  "    FROM REVIEW RE, BOOK BO "
-                + "   WHERE RE.BOOKNUM = BO.BOOKNUM ";
+        		+  "    FROM MYLIBRARY M, BOOK B "
+                + "   WHERE M.READBOOK = B.BOOKNUM ";
        
 		  String sWord = "";
 	        if(choice.equals("title")) {
@@ -126,7 +126,7 @@ private static MypageDao dao = new MypageDao();
 		 	} 
 	        sql = sql + sWord;
 	        
-	        sql += " AND RE.MEMBERNUM = ? ) ";
+	        sql += " AND M.MEMBERNUMFK = ? AND B.BOOKNUM > 0 ) ";
 	        
 	        sql += " WHERE RNUM >= ? AND RNUM <= ? ";
 	        
@@ -202,7 +202,7 @@ private static MypageDao dao = new MypageDao();
 		 	} 
 	        sql = sql + sWord;
 	        
-	        sql += " AND M.MEMBERNUM = ?) ";
+	        sql += " AND M.MEMBERNUMFK = ? AND B.BOOKNUM > 0) ";
 		         
 	      Connection conn = null;
 	      PreparedStatement psmt = null;
@@ -239,11 +239,11 @@ private static MypageDao dao = new MypageDao();
 		String sql = " SELECT COUNT(*)"
                 + " FROM ";
 		
-		sql += " (SELECT ROW_NUMBER()OVER(ORDER BY REVSEQ DESC) AS RNUM, " 
-        		+  "    BO.BOOKNUM AS BOOKNUMS, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
+		sql += " (SELECT ROW_NUMBER()OVER(ORDER BY WISHSEQ DESC) AS RNUM, " 
+        		+  "   BOOKNUM, BOOKTITLE, CATEGORIES, BOOKREADCOUNT, BOOKDEL, GRADE, "
         		+ " 	AUTHOR, ISSUEDATE, BOOKHEADER, PUBLISHER, BOOKIMAGE " 
-        		+  "    FROM REVIEW RE, BOOK BO "
-                + "   WHERE RE.BOOKNUM = BO.BOOKNUM ";
+        		+  "    FROM MYLIBRARY M, BOOK B "
+                + "   WHERE M.READBOOK = B.BOOKNUM ";
        
 		  String sWord = "";
 	        if(choice.equals("title")) {
@@ -254,7 +254,7 @@ private static MypageDao dao = new MypageDao();
 		 	} 
 	        sql = sql + sWord;
 	        
-	        sql += " AND RE.MEMBERNUM = ?) ";
+	        sql += " AND M.MEMBERNUMFK = ? AND B.BOOKNUM > 0) ";
 	        
 	      Connection conn = null;
 	      PreparedStatement psmt = null;
@@ -427,7 +427,7 @@ private static MypageDao dao = new MypageDao();
 	
 	public boolean updateMember(MemberDto dto) {
 		 String sql = " UPDATE MEMBERS SET "
-	                + " PWD= ? , EMAIL= ? , PHONE= ? , BIRTH= ?  "
+	                + " PWD=?, EMAIL=?, PHONE=?, USERIMAGE=?  "
 	                + " WHERE USERID = ? ";
 	        
 	        Connection conn = null;
@@ -442,8 +442,8 @@ private static MypageDao dao = new MypageDao();
 	            psmt.setString(1, dto.getPwd());
 	            psmt.setString(2, dto.getEmail());
 	            psmt.setString(3, dto.getPhone());
-	            psmt.setString(4, dto.getBirth());
-	            psmt.setInt(5, dto.getMembernum());
+	            psmt.setString(4, dto.getUserimage());
+	            psmt.setString(5, dto.getUserid());
 	            
 	            
 	            System.out.println("2/3 S updateMember");
@@ -459,9 +459,168 @@ private static MypageDao dao = new MypageDao();
 	        
 	        return count>0?true:false;
 	    }
-	    
-	    
+	/////////////////////////////////민선 추가부분////////////////////////////////////////////////////////////    
+		//wishlist 추가하기
+		public void addWishBook(int membernum, int booknum) {
+			
+			String sql = " INSERT INTO MYLIBRARY(MEMBERNUMFK, WISHSEQ, WISHBOOK, READBOOK) "
+			+ " VALUES(?, SEQ_WISH.NEXTVAL, ?, 0)";
+			
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			
+			
+			try {
+				conn = DBConnection.getConnection();
+				System.out.println("1/3 S addwishbook");
+				
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, membernum);
+				psmt.setInt(2, booknum);
+				System.out.println("2/3 S addwishbook");
+				
+				psmt.executeUpdate();
+				System.out.println("3/3 S addwishbook");
+				
+			} catch (Exception e) {            
+				e.printStackTrace();
+				System.out.println("addwishbook 오류");
+			} finally{
+				DBClose.close(conn, psmt, null);            
+			}        
+			
+		} 
 	
+		//wishlist 삭제하기
+		public void deleteWishBook(int membernum, int booknum) {
+			
+			String sql = " DELETE FROM MYLIBRARY "
+					   + " WHERE MEMBERNUMFK = ? AND WISHBOOK = ? ";
+			
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			
+			
+			try {
+				conn = DBConnection.getConnection();
+				System.out.println("1/3 S deleteWishBook");
+				
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, membernum);
+				psmt.setInt(2, booknum);
+				System.out.println("2/3 S deleteWishBook");
+				
+				psmt.executeUpdate();
+				System.out.println("3/3 S deleteWishBook");
+				
+			} catch (Exception e) {            
+				e.printStackTrace();
+				System.out.println("deleteWishBook 오류");
+			} finally{
+				DBClose.close(conn, psmt, null);            
+			}              
+		}
+		
+		
+	  public boolean getlike(int membernum, int booknum) {
+	        String sql = " SELECT COUNT(*) "
+	              + " FROM MYLIBRARY "
+	              + " WHERE MEMBERNUMFK=? AND WISHBOOK=? ";
+	        
+	        Connection conn = null;
+	         PreparedStatement psmt = null;
+	         ResultSet rs = null;
+	         
+	         int count = 0; //return 해줄 글의 총수
+	         
+	         try {
+	            conn = DBConnection.getConnection();
+	            System.out.println("1/3 S getlike");
+	            
+	            psmt= conn.prepareStatement(sql);
+	            psmt.setInt(1, membernum);
+	            psmt.setInt(2, booknum);
+	            System.out.println("2/3 S getlike");
+	            
+	            rs = psmt.executeQuery();
+	            if(rs.next()) {
+	               count = rs.getInt(1);
+	            }
+	            System.out.println("3/3 S getlike");            
+	         } catch (SQLException e) {
+	            System.out.println("Fail getlike");
+	            e.printStackTrace();
+	         } finally {
+	            DBClose.close(conn, psmt, rs);
+	         }
+	         
+	         return count>0?true:false;       
+	 }
+	  
+	//readlist 추가하기
+	public void addreadBook(int membernum, int booknum) {
+		String sql = " INSERT INTO MYLIBRARY(MEMBERNUMFK, WISHSEQ, WISHBOOK, READBOOK) "
+				+ " VALUES(?, SEQ_WISH.NEXTVAL, 0, ?)";
+		
+		System.out.println("addreadBook booknum = " + booknum);
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		
+		try {
+			conn = DBConnection.getConnection();
+			System.out.println("1/3 S addreadBook");
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, membernum);
+			psmt.setInt(2, booknum);
+			System.out.println("2/3 S addreadBook");
+			
+			psmt.executeUpdate();
+			System.out.println("3/3 S addreadBook");
+			
+		} catch (Exception e) {            
+			e.printStackTrace();
+			System.out.println("addreadBook 오류");
+		} finally{
+			DBClose.close(conn, psmt, null);            
+		}        		
 	}
+	
+	 public boolean getread(int membernum, int booknum) {
+	        String sql = " SELECT COUNT(*) "
+	              + " FROM MYLIBRARY "
+	              + " WHERE MEMBERNUMFK=? AND READBOOK=? ";
+	        
+	        Connection conn = null;
+	         PreparedStatement psmt = null;
+	         ResultSet rs = null;
+	         
+	         int count = 0; //return 해줄 글의 총수
+	         
+	         try {
+	            conn = DBConnection.getConnection();
+	            System.out.println("1/3 S getread");
+	            
+	            psmt= conn.prepareStatement(sql);
+	            psmt.setInt(1, membernum);
+	            psmt.setInt(2, booknum);
+	            System.out.println("2/3 S getread");
+	            
+	            rs = psmt.executeQuery();
+	            if(rs.next()) {
+	               count = rs.getInt(1);
+	            }
+	            System.out.println("3/3 S getread");            
+	         } catch (SQLException e) {
+	            System.out.println("Fail getread");
+	            e.printStackTrace();
+	         } finally {
+	            DBClose.close(conn, psmt, rs);
+	         }
+	         
+	         return count>0?true:false;       
+	 }
+}
 	
 

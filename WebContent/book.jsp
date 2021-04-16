@@ -1,3 +1,4 @@
+<%@page import="login.MemberDto"%>
 <%@page import="book.BookDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,10 +17,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!--  css -->
- <link href="css/style1.css" rel="stylesheet" /> 
+ <!--  <link href="css/style1.css" rel="stylesheet" />  -->
+  <link href="css/all.css" rel="stylesheet" />
   <link href="css/book.css" rel="stylesheet" />
   <link href="css/bookaction.css" rel="stylesheet" />
-  <link href="css/all.css" rel="stylesheet" />
 
 <!-- font font-family: 'Noto Serif KR', serif; -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -44,7 +45,15 @@
 <body style="font-family: 'Noto Serif KR', serif;">
 
 <%
-    
+	Object userId = session.getAttribute("userId");
+	MemberDto mem = null;
+	int membernum = -1;
+	
+	if(userId != null){ // 로그인 세션이 있을경우 
+		mem = (MemberDto)userId;
+		membernum = mem.getMembernum();
+	}
+	
     //변수 받아오기
     //신작 리스트 받아오기
     List<BookDto> Newlist = (List<BookDto>)request.getAttribute("Newlist");
@@ -64,20 +73,21 @@
     //menu 변수
     String menu = (String)request.getAttribute("menu");
     
-    System.out.println("신작 갯수 : "+Newlist.size());
-    System.out.println("오늘의 책 갯수 : "+Userlist.size());
-    System.out.println("검색 select : "+searchTitle);
-    System.out.println("menu 카테고리 : "+menu);
-    System.out.println("검색 문자 : "+searchText);
+   System.out.println("신작 갯수 : "+Newlist.size());
+   System.out.println("오늘의 책 갯수 : "+Userlist.size());
+   System.out.println("검색 select : "+searchTitle);
+   System.out.println("menu 카테고리 : "+menu);
+   System.out.println("검색 문자 : "+searchText);
    System.out.println("신작 갯수 출력 : "+Newlist.size());
-    System.out.println("페이징 번호pageNumber(현재)  : " +pageNumber);
+   System.out.println("페이징 번호pageNumber(현재)  : " +pageNumber);
    System.out.println("페이징 숫자bookPage(전체)  : " +bookPage);
  %> 
 
 <script type="text/javascript">
 //해당 선택
-let menu = <%=menu%>;
-document.getElementById('total').className="menu";
+let menu = "<%=menu%>";
+document.getElementById('total').className += menu;
+document.getElementById(menu).classList.toggle("left-active");
 
 $(document).ready(function() {
    // 검색어 있는 경우
@@ -116,25 +126,25 @@ $(document).ready(function() {
       
       <ul class="category_ul animate__animated animate__fadeInLeft">
          <li id="total" class="nav-item-active" >
-            <a href="#none" class="nav-link" onclick="pagebtn('total')" >전체</a>
+            <a href="#none" class="nav-link left-link" onclick="pagebtn('total')" >전체</a>
          </li >
          <li id="poemFict" class="nav-item-active">
-            <a href="#none" class="nav-link" onclick="pagebtn('poemFict')">시/소설</a>
+            <a href="#none" class="nav-link left-link" onclick="pagebtn('poemFict')">시/소설</a>
          </li>
          <li id="essaSimp" class="nav-item-active">
-            <a href="#none" class="nav-link" onclick="pagebtn('essaSimp')">에세이/자기계발서</a>
+            <a href="#none" class="nav-link left-link" onclick="pagebtn('essaSimp')">에세이/자기계발서</a>
          </li>
          <li id="econSoci" class="nav-item-active">
-            <a href="#none" class="nav-link" onclick="pagebtn('econSoci')">경제/사회</a>
+            <a href="#none" class="nav-link left-link" onclick="pagebtn('econSoci')">경제/사회</a>
          </li>
          <li id="artComic" class="nav-item-active">
-            <a href="#none" class="nav-link" onclick="pagebtn('artComic')">예술/만화</a>
+            <a href="#none" class="nav-link left-link" onclick="pagebtn('artComic')">예술/만화</a>
          </li>
          <li id="historical" class="nav-item-active">
-             <a href="#none" class="nav-link" onclick="pagebtn('historical')">역사</a>
+             <a href="#none" class="nav-link left-link" onclick="pagebtn('historical')">역사</a>
          </li>
          <li id="science" class="nav-item-active">
-             <a href="#none" class="nav-link" onclick="pagebtn('science')">과학</a>
+             <a href="#none" class="nav-link left-link" onclick="pagebtn('science')">과학</a>
          </li>
       </ul>
        
@@ -190,14 +200,14 @@ $(document).ready(function() {
                        
                  %>   
                  <div class="service col-sm-3 col-xs-12 justify-content-center">
-                  <a href="book?param=bookdetail&booknum=<%=Newbook.getBooknum() %>" class="gtco-item two-row bg-img animate__animated animate__fadeInUp">
+                  <a href="book?param=bookdetail&booknum=<%=Newbook.getBooknum() %>&membernum=<%=membernum %>" class="gtco-item two-row bg-img animate__animated animate__fadeInUp">
                      <div class="overlay">
                      <div class="copy" style="bottom:30px">
                         <h3><%=Newbook.getBooktitle() %></h3>
                         <p><%=Newbook.getAuthor() %></p>
                      </div>
                   </div>   
-                     <img class="" src="./img/bookimg/<%=Newbook.getBookimage() %>.jpg" style="height: 240px">
+                     <img class="" src="./upload/<%=Newbook.getBookimage() %>" style="height: 240px" onerror='this.src="./img/noneBook1.png"'>
                  </a>
               
                     </div>   
@@ -245,14 +255,14 @@ $(document).ready(function() {
                              
                        %>   
                        <div class="service col-sm-3 col-xs-12 justify-content-center">
-                        <a href="book?param=bookdetail&booknum=<%=userbook.getBooknum() %>"  class="gtco-item two-row bg-img animate__animated animate__fadeInUp" ">
+                        <a href="book?param=bookdetail&booknum=<%=userbook.getBooknum() %>&membernum=<%=membernum %>"  class="gtco-item two-row bg-img animate__animated animate__fadeInUp" ">
                            <div class="overlay">
                            <div class="copy">
                               <h3><%=userbook.getBooktitle() %></h3>
                               <p><%=userbook.getAuthor() %></p>
                            </div>
                         </div>   
-                           <img class="service" src="./img/bookimg/<%=userbook.getBookimage() %>.jpg" style="height: 240px">
+                           <img class="service" src="./upload/<%=userbook.getBookimage() %>" style="height: 240px">
                        </a>
                           </div>   
                        <%      }
@@ -315,16 +325,20 @@ function pagebtn(menu){
 </script>
 
  <!-- 쿠키 -->
-   <script src="http://lab.alexcican.com/set_cookies/cookie.js" type="text/javascript" ></script>
-
+<script src="http://lab.alexcican.com/set_cookies/cookie.js" type="text/javascript" ></script>
 <script type="text/javascript">
-
  $(document).ready(function() {
     var activee = $.cookie("activee");
-    
+   
     if(activee == "1"){
        $("#select1").removeClass('active');
        $("#select2").addClass('active');
+       
+       $("#bookheader").removeClass('active');
+       $("#bookheader").addClass('fade');
+       
+       $("#answer").removeClass('fade');
+       $("#answer").addClass('active');
     }
     
     $('#select2').click(function(){
@@ -336,7 +350,7 @@ function pagebtn(menu){
        $.cookie("activee", activee,{ expires:1, path:'./'});
     });
     
- }); 
+ });
 </script>
 
 

@@ -93,7 +93,7 @@ private static ClubDao dao = new ClubDao();
 										  rs.getString(i++),
 										  rs.getString(i++),
 										  rs.getString(i++),
-										  rs.getInt(i++),
+										  rs.getString(i++),
 										  rs.getInt(i));
 				cardlist.add(dto);
 			}
@@ -109,9 +109,9 @@ private static ClubDao dao = new ClubDao();
 	}
 	// 카드 불러오기
 	public CardDto getCard(int cardseq) {
-		String sql =" SELECT CARDSEQ, CARDTITLE, CARDTEXT, CARDSTART, CARDEND, BOOKNUM, CLUBSEQ "
-				+ " FROM CARD "
-				+ " WHERE CARDSEQ=? ";
+		String sql =" SELECT C.CARDSEQ, C.CARDTITLE, C.CARDTEXT, C.CARDSTART, C.CARDEND, B.BOOKNUM, C.CLUBSEQ, B.BOOKIMAGE "
+				+ " FROM CARD C, BOOK B "
+				+ " WHERE C.BOOKNUM=B.BOOKNUM AND C.CARDSEQ=? ";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -133,7 +133,7 @@ private static ClubDao dao = new ClubDao();
 			if(rs.next()) {
 				int i=1;
 				
-				carddto = new CardDto(rs.getInt(i++), rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getInt(i++), rs.getInt(i)); 
+				carddto = new CardDto(rs.getInt(i++), rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getString(i++), rs.getInt(i++), rs.getInt(i++), rs.getString(i++)); 
 			}
 			System.out.println("4/4 S getCard");
 		} catch (SQLException e) {
@@ -314,8 +314,8 @@ private static ClubDao dao = new ClubDao();
 	// 클럽수정 -> 클럽장만!! 
 	public boolean updateClub( ClubDto dto) {
 		String sql = " UPDATE CLUB SET "
-				+ " CLUBTITLE=?, CLUBTEXT=?, CLUBIMAGE=? "
-				+ " WHERE SEQ=? ";
+				+ " CLUBTITLE=?, CLUBTEXT=? " //CLUBIMAGE=?
+				+ " WHERE CLUBSEQ=? ";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -328,8 +328,8 @@ private static ClubDao dao = new ClubDao();
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getClubtitle());
 			psmt.setString(2, dto.getClubtext());
-			psmt.setString(3, dto.getClubimage());
-			psmt.setInt(4, dto.getClubseq());
+			//psmt.setString(3, dto.getClubimage());
+			psmt.setInt(3, dto.getClubseq());
 			System.out.println("2/3 S updateClub");
 			
 			count = psmt.executeUpdate();
@@ -676,8 +676,40 @@ private static ClubDao dao = new ClubDao();
 	
 	// 책 상세 페이지에서 책 관련 카드모음 
 	public List<ClubDto> bookClubList(int booknum){
-	      //만들어야 함
-	      return null;
+		String sql = " SELECT CL.CLUBSEQ, CL.CLUBTITLE, AL.TALKSUM "
+				+ " FROM CLUB CL, (SELECT C.CARDSEQ, T.TALKSUM, C.BOOKNUM, C.CLUBSEQ "
+				+ "					FROM CARD C, (SELECT CARDSEQ, COUNT(*) AS TALKSUM FROM TALK GROUP BY CARDSEQ) T "
+				+ " 								WHERE C.CARDSEQ=T.CARDSEQ) AL "
+				+ " WHERE CL.CLUBSEQ = AL.CLUBSEQ AND AL.BOOKNUM=" + booknum;
+										
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<ClubDto> clublist = new ArrayList<ClubDto>();
+		
+		try {
+			conn = DBConnection.getConnection();
+			System.out.println("1/4 S bookClubList");
+			
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/4 S bookClubList");
+			System.out.println(sql);
+			rs = psmt.executeQuery();
+			System.out.println("3/4 S bookClubList");
+			
+			while(rs.next()) {
+				int i=1;
+				ClubDto dto = new ClubDto(rs.getInt(i++),
+										  rs.getString(i++),
+										  rs.getInt(i));
+				clublist.add(dto);
+			}
+			System.out.println("4/4 bookClubList");
+		}
+		catch (SQLException e) {System.out.println("Fail bookClubList");}
+		finally {DBClose.close(conn, psmt, rs);}
+		return clublist;			
 	   }
 	
 	//날짜 형식 바꿔주는
@@ -722,5 +754,49 @@ private static ClubDao dao = new ClubDao();
 		}
 		
 		return count>0?true:false;		
+	}
+	
+	// 시끌벅적 클럽리스트
+	public List<ClubDto> getBestClubList(){
+		String sql = " SELECT CB.CLUBSEQ, CB.CLUBTITLE, CB.CLUBTEXT, CB.CLUBDATE, CB.MEMBERNUM, CB.CLUBIMAGE, SUM,"
+				+ " ROW_NUMBER()OVER(ORDER BY SUM DESC) AS RNUM "
+				+ " FROM CLUB CB, (SELECT CLUBSEQ, COUNT(*) AS SUM "
+				+ " FROM CLUBLINK "
+				+ " GROUP BY CLUBSEQ) CL "
+				+ " WHERE CB.CLUBSEQ = CL.CLUBSEQ ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<ClubDto> clublist = new ArrayList<ClubDto>();
+		
+		try {
+			conn = DBConnection.getConnection();
+			System.out.println("1/4 S getBestClubList");
+			
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/4 S getBestClubList");
+			System.out.println(sql);
+			rs = psmt.executeQuery();
+			System.out.println("3/4 S getBestClubList");
+			
+			while(rs.next()) {
+				int i=1;
+				ClubDto dto = new ClubDto(rs.getInt(i++),
+										  rs.getString(i++),
+										  rs.getString(i++),
+										  rs.getString(i++),
+										  rs.getInt(i++),
+										  rs.getString(i++),
+										  rs.getInt(i));
+				clublist.add(dto);
+			}
+			System.out.println("4/4 getBestClubList");
+		}
+		catch (SQLException e) {System.out.println("Fail getBestClubList");}
+		finally {DBClose.close(conn, psmt, rs);}
+		return clublist;			
+			
 	}
 }

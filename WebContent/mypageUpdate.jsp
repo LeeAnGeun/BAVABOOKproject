@@ -6,6 +6,8 @@
 <%
 //controller param=getMyInfo에서 회원정보 받아와서 input창에 입력해줌
 MemberDto dto = (MemberDto)request.getAttribute("memberdto");
+Integer membernum = (Integer)request.getAttribute("membernum"); 
+System.out.println("userseq = " + membernum);
 %> 
 
   
@@ -31,7 +33,7 @@ MemberDto dto = (MemberDto)request.getAttribute("memberdto");
 
   <div class="regiform">
        <form action="mypageUpdate" method="post" name="userInfo" enctype="multipart/form-data">
-       <input type="hidden" name="userseq" value="<%= dto.getMembernum() %>"> 
+       <input type="hidden" name="userseq" value="<%=membernum %>"> 
 
     <!-- header -->
     <div id="header">
@@ -46,17 +48,33 @@ MemberDto dto = (MemberDto)request.getAttribute("memberdto");
             <div id="content">
                <!-- 이미지 업로드 -->
             
+           		 <div>
+                   <div>
+  		               <h3 class="join_title"><label>기존 이미지</label></h3>
+	                  <div class="img_wrap">
+                          <img src="./upload/<%=dto.getUserimage() %>"> 	
+               	   	  </div>
+	                  
+	                    <span class="box int_id">
+		                    <input type="text" id="userid" name="userimage" class="mypage" maxlength="20" value="<%=dto.getUserimage() %>" readonly="readonly"> 
+		                    <!-- 중복체크 버튼 -->
+		                 </span>
+	             
+                  </div>
+               </div>
+            
                 <div>
                    <div>
+  		               <h3 class="join_title">
+                		  	 <label>이미지 미리보기</label>   
+            		   </h3>
+                      <div class="img_wrap">
+                          <img id="img" > 	
+               	   	  </div>
+  		               
   		               <h3 class="join_title"><label>이미지 업로드</label></h3>
 	                   <input type="file" class="filebtnR" id="input_img" name="memberImg">
-	                   <h3 class="join_title">
-                		  	 <label>이미지 미리보기</label>   
-            		    </h3>
-                      <div class="img_wrap">
-                          <img id="img" />
-                          	
-               	   	  </div>
+	                   
                   </div>
                </div>
             
@@ -79,7 +97,7 @@ MemberDto dto = (MemberDto)request.getAttribute("memberdto");
             <div class="form-group">
                     <h3 class="join_title"><label for="pwd">비밀번호</label></h3>
                     <span class="box int_pass">
-                        <input type="text"name="pwd" id="pwd" class="int" maxlength="20" value="<%=dto.getPwd() %>">
+                        <input type="password"name="pwd" id="pwd" class="int" maxlength="20" value="<%=dto.getPwd() %>">
                         
                     </span>
                 </div>
@@ -89,52 +107,77 @@ MemberDto dto = (MemberDto)request.getAttribute("memberdto");
             <div class="form-group">
                     <h3 class="join_title"><label for="pwd2">비밀번호 확인</label></h3>
                     <span class="box int_pass_check">
-                        <input type="text" name="pwd2" id="pwd2" class="int" maxlength="20" value="">
+                        <input type="password" name="pwd2" id="pwd2" class="int" maxlength="20" value="">
                     </span>
                 </div>
-
-
- 
- 			<!-- 생년월일 정보 나눠서 input에 넣어주기 -->
- 			<%
- 			String birthday = dto.getBirth();
-            String year = birthday.substring(0, 4);
-            String month = birthday.substring(5, 7);
-            String day = birthday.substring(8, 10);
- 			
- 			%>
- 
  
  
             <!-- BIRTH -->
-            <div class="form-group">
+           <div class="form-group">
                 <h3 class="join_title"><label for="yy">생년월일</label></h3>
 
                 <div id="bir_wrap">
                     <!-- BIRTH_YY -->
                     <div id="bir_yy">
-                        <span class="box">
-                            <input type="text" id="yy" name="yy" class="int" maxlength="4" placeholder="년(4자)" value="<%=year %>">
+                       <span class="box">
+                               <select type="text" id="yy" name="yy" class="int" >
+                               <%for(int i=1970;i<2022;i++) { %>
+                                  <option value="<%=i%>"><%=i %></option>
+                               <%} %>   
+                               </select>
                         </span>
                     </div>
 
                     <!-- BIRTH_MM -->
                     <div id="bir_mm">
                             <span class="box">
-                                <input type="text" name="mm" id="mm"  class="int" maxlength="2" placeholder="월" value="<%=month %>">
+                                   <select type="text"  name="mm" id="mm"  class="int" onchange="checkDay(this)">
+                               <%for(int i=1;i<13;i++) { %>
+                                  <option value="<%=i%>"><%=i %></option>
+                               <%} %>   
+                               </select>
                             </span>
-                        </div>
+                       </div>
 
                     <!-- BIRTH_DD -->
                     <div id="bir_dd">
-                        <span class="box">
-                            <input type="text" id="dd" name="dd" class="int" maxlength="2" placeholder="일" value="<%=day %>">
+                         <span class="box">
+                        <select type="text"  id="dd" name="dd" class="int" >
+                               <%for(int i=1;i<32;i++) { %>
+                                  <option value="<%=i%>"><%=i %></option>
+                               <%} %>   
+                           </select>
+                           
                         </span>
                     </div>
-
-                </div>
-               <!--  <span class="error_next_box"></span>    --> 
-            </div>
+                 </div> 
+                 
+              <!-- 생년월일 정보 나눠서 input에 넣어주기 -->
+	          <%
+	          String birthday = dto.getBirth();
+	            System.out.println("birthday = " + birthday);  
+	                          
+	            String[] birth = birthday.split("/");
+	            String year = birth[0];
+	            String month = birth[1];
+	            String day = birth[2];
+	          
+	            System.out.println(year);
+	            System.out.println(month);
+	            System.out.println(day);
+	            
+	          %> 
+            
+            
+            <script type="text/javascript">
+   
+            $(document).ready(function(){
+                $('#yy').val('<%=year %>').prop("selected",true);
+                 $('#mm').val('<%=month %>').prop("selected",true);
+                 $('#dd').val('<%=day %>').prop("selected",true);
+            });
+            
+            </script>      
 
             <!-- EMAIL -->
                <div class="form-group">

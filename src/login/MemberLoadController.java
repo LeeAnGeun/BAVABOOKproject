@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import book.BookController;
 import book.BookDao;
 import book.BookDto;
 
@@ -34,7 +35,8 @@ public class MemberLoadController extends HttpServlet {
 	   @Override
 	   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		   System.out.println("S FileController");
-		   
+		   String param = req.getParameter("param");
+		   System.out.println("param = " + param);
 		   // tomcat 배포 - server
 		   String fupload =  mConfig.getServletContext().getRealPath("/upload");
 		   // 지정 폴더 - client
@@ -43,6 +45,7 @@ public class MemberLoadController extends HttpServlet {
 		   String yourTempDir = fupload;
 		   int yourMaxRequestSize = 100 * 1024 * 1024; // 1 Mbyte
 		   int yourMaxMemorySize = 100 * 1024;			// 1 Kbyte
+		   boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 		   
 		   System.out.println("S FileController2");
 		   String newfilename = "";
@@ -67,7 +70,7 @@ public class MemberLoadController extends HttpServlet {
 		   int bookNumber = 0; //Integer.parseInt(req.getParameter("booknum"));
 		   // file명 저장
 		   String originalfilename = "";
-		   boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+		   String oldfile = "";
 		   
 		   System.out.println("isMultipart = " + isMultipart);
 		   System.out.println("S FileController3");
@@ -142,7 +145,9 @@ public class MemberLoadController extends HttpServlet {
 		   			}else if(item.getFieldName().equals("bookNumber")) {
 		   				
 	                     bookNumber = Integer.parseInt(item.getString("utf-8").trim());
-	                     System.out.println("booknumnmummumumnunm" + bookNumber);
+	                     System.out.println("booknum" + bookNumber);
+		   			}else if(item.getFieldName().equals("oldfile")) {
+		   				oldfile = item.getString("utf-8");
 		   			}
 		   		}else {
 	   				if(item.getFieldName().equals("memberImg")){
@@ -160,7 +165,7 @@ public class MemberLoadController extends HttpServlet {
 		  }
 		   
 		   if(newfilename == "") {
-			   newfilename = "noimage";
+			   newfilename = oldfile;
 		   }
 		   
 		   System.out.println("S FileController6");
@@ -174,7 +179,7 @@ public class MemberLoadController extends HttpServlet {
 				  System.out.println("S FileController7");
 				  
 				  boolean isS = dao.addMember(dto);
-				  resp.sendRedirect("main?param=mainscreen");
+				  req.getRequestDispatcher("main?param=mainscreen").forward(req, resp);
 		   }
 		   else if(booktitle != "") {
 			   boolean isS =false;
@@ -184,7 +189,12 @@ public class MemberLoadController extends HttpServlet {
 				  BookDto dto = new BookDto(bookNumber, booktitle, category, author, issudate, bookheader, publisher, newfilename);
 				  System.out.println(dto.toString());
 				  System.out.println("checkFlag : "+checkFlag);
-				  if(checkFlag.equals("insert")) {
+				  
+				  
+                  
+       
+				 
+                  if(checkFlag.equals("insert")) {
 					  System.out.println("insert!!");
 					  isS = dao.getBookInsert(dto);
 		                 
@@ -211,7 +221,7 @@ public class MemberLoadController extends HttpServlet {
 		                        System.out.println("searchTitle"+searchTitle);
 		                        System.out.println("searchText"+searchText);
 		                        System.out.println("page"+page);
-		                        List<BookDto> bookList = dao.getBookList(searchTitle, searchText, page);
+		                        List<BookDto> bookList = dao.getBookAllList(searchTitle, searchText);
 		                        for(int i=0;i<bookList.size();i++) {
 		                           System.out.println(bookList.get(i));
 		                        }
@@ -227,13 +237,13 @@ public class MemberLoadController extends HttpServlet {
 		                     }
 		                       
 		                   
-		                        req.setAttribute("bookPage", bookPage+"");
+		                     req.setAttribute("bookPage", bookPage+"");
 		                     req.setAttribute("pageNumber", page+"");
 		                     req.setAttribute("searchTitle", searchTitle);
 		                     req.setAttribute("searchText", searchText);
 		                        
 		                        req.setAttribute("error", "0");
-		                        req.getRequestDispatcher("main.jsp?content=masterPage").forward(req, resp);
+		                        req.getRequestDispatcher("index.jsp?content=masterPage").forward(req, resp);
 		                      
 		                 }else {
 
@@ -258,7 +268,7 @@ public class MemberLoadController extends HttpServlet {
 		                        System.out.println("searchTitle"+searchTitle);
 		                        System.out.println("searchText"+searchText);
 		                        System.out.println("page"+page);
-		                        List<BookDto> bookList = dao.getBookList(searchTitle, searchText, page);
+		                        List<BookDto> bookList = dao.getBookAllList(searchTitle, searchText);
 		                        for(int i=0;i<bookList.size();i++) {
 		                           System.out.println(bookList.get(i));
 		                        }
@@ -280,7 +290,7 @@ public class MemberLoadController extends HttpServlet {
 		                     req.setAttribute("searchText", searchText);
 		                        
 		                        req.setAttribute("error", "0");
-		                        req.getRequestDispatcher("main.jsp?content=masterPage").forward(req, resp);
+		                        req.getRequestDispatcher("index.jsp?content=masterPage").forward(req, resp);
 		                 }
 		              }else if(checkFlag.equals("update")) {
 		                 System.out.println("update!!");
@@ -309,7 +319,7 @@ public class MemberLoadController extends HttpServlet {
 		                        System.out.println("searchTitle"+searchTitle);
 		                        System.out.println("searchText"+searchText);
 		                        System.out.println("page"+page);
-		                        List<BookDto> bookList = dao.getBookList(searchTitle, searchText, page);
+		                        List<BookDto> bookList = dao.getBookAllList(searchTitle, searchText);
 		                        for(int i=0;i<bookList.size();i++) {
 		                           System.out.println(bookList.get(i));
 		                        }
@@ -325,13 +335,12 @@ public class MemberLoadController extends HttpServlet {
 		                     }
 		                       
 		                   
-		                        req.setAttribute("bookPage", bookPage+"");
+		                     req.setAttribute("bookPage", bookPage+"");
 		                     req.setAttribute("pageNumber", page+"");
 		                     req.setAttribute("searchTitle", searchTitle);
 		                     req.setAttribute("searchText", searchText);
-		                        
-		                        req.setAttribute("error", "0");
-		                        req.getRequestDispatcher("main.jsp?content=masterPage").forward(req, resp);
+		                     req.setAttribute("error", "0");
+		                     req.getRequestDispatcher("index.jsp?content=masterPage").forward(req, resp);
 		                 }else {
 
 		                        String searchTitle = req.getParameter("searchTitle");
@@ -355,7 +364,7 @@ public class MemberLoadController extends HttpServlet {
 		                        System.out.println("searchTitle"+searchTitle);
 		                        System.out.println("searchText"+searchText);
 		                        System.out.println("page"+page);
-		                        List<BookDto> bookList = dao.getBookList(searchTitle, searchText, page);
+		                        List<BookDto> bookList = dao.getBookAllList(searchTitle, searchText);
 		                        for(int i=0;i<bookList.size();i++) {
 		                           System.out.println(bookList.get(i));
 		                        }
@@ -370,16 +379,17 @@ public class MemberLoadController extends HttpServlet {
 		                     }
 		                       
 		                   
-		                        req.setAttribute("bookPage", bookPage+"");
+		                     req.setAttribute("bookPage", bookPage+"");
 		                     req.setAttribute("pageNumber", page+"");
 		                     req.setAttribute("searchTitle", searchTitle);
 		                     req.setAttribute("searchText", searchText);
 		                        
-		                        req.setAttribute("error", "0");
-		                        req.getRequestDispatcher("main.jsp?content=masterPage").forward(req, resp);
+		                     req.setAttribute("error", "0");
+		                     req.getRequestDispatcher("index.jsp?content=masterPage").forward(req, resp);
 		                 }
+		                
 		              }
-		              
+		               
 		             
 		             
 		         }

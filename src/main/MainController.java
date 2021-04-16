@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import book.BookDao;
 import book.BookDto;
+import club.ClubDao;
+import club.ClubDto;
+import login.LoginDao;
 import login.MemberDto;
 
 public class MainController extends HttpServlet{
@@ -32,7 +35,9 @@ public class MainController extends HttpServlet{
 		String param = req.getParameter("param");
 		
 		if(param.equals("mainscreen")) {
-			BookDao dao = BookDao.getInstance();
+			BookDao bookdao = BookDao.getInstance();
+			ClubDao clubdao = ClubDao.getInstance();
+			LoginDao logindao = LoginDao.getInstance();
 			
 			/*
 			String choice = req.getParameter("choice");
@@ -42,26 +47,30 @@ public class MainController extends HttpServlet{
 			}
 			*/
 
-			List<BookDto> list = dao.getBookList("","",2);
-
+			List<BookDto> newBooklist = bookdao.getNewBookList();			// 신작
+			List<BookDto> bestBooklist = bookdao.getBestBookList();			// 이달의 책	 
+			List<ClubDto> bestClublist = clubdao.getBestClubList();			// 시끌벅적 소모임
+			List<MemberDto> bestMemberlist = logindao.getBestMemberList();	// 활발히 활동한 사용자
 			
-			// req.setAttribute("list", list);
+			System.out.println("newBooklist = " + newBooklist.toString() );
+			System.out.println("bestBooklist = " + bestBooklist.toString() );
+			System.out.println("bestClublist = " + bestClublist.toString() );
+			System.out.println("bestMemberlist = " + bestMemberlist.toString() );
 			
-			// 활동순위 activity
+			req.setAttribute("newBooklist", newBooklist);
+			req.setAttribute("bestBooklist", bestBooklist);
+			req.setAttribute("bestClublist", bestClublist);
+			req.setAttribute("bestMemberlist", bestMemberlist);
 			
-			MainDao Mdao = MainDao.getInstance();
-			List<MemberDto> Mlist = Mdao.getActivityList();
+			req.setAttribute("content", "home");
 			
-			req.setAttribute("Mlist", Mlist);
-			
-			
-			
-			
+			String error = req.getParameter("error");
+			if(error != null) {
+				req.setAttribute("error", "1");
+			}			
 			// 소그룹 순위
 			
-
-			req.getRequestDispatcher("index.jsp").forward(req, resp);
-			
+			req.getRequestDispatcher("index.jsp").forward(req, resp);			
 		}
 	}
 }

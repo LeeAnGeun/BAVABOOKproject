@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         //폼 서밋
 		//실제로는 서버에 폼을 전송하고 완료 메시지가 표시되지만 저장된 것으로 간주하고 폼을 초기화 함.
+        
+        document.getElementById("frm").submit();
+        
 		alert("저장완료!");
 		rating.setRate(0);
 		document.querySelector('.review_textarea').value = '';
@@ -67,10 +70,10 @@ Rating.prototype.showMessage = function(type){//경고메시지 표시
             break;
         case 'review':
             //안내메시지 표시
-            document.querySelector('.review_contents .warning_msg').style.display = 'block';
+            document.querySelector('.warning_msg2').style.display = 'block';
             //지정된 시간 후 안내 메시지 감춤
             setTimeout(function(){
-                document.querySelector('.review_contents .warning_msg').style.display = 'none';
+                document.querySelector('.warning_msg2').style.display = 'none';
             },1000);    
             break;
     }

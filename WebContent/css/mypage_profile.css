@@ -1,10 +1,8 @@
-html, body{
-				height: 100%;
-				padding: 0;
-				background: rgba(0,0,0,0.02) !important;
-	}
+
 	.card-header{
 		background-image: url('https://cdn.pixabay.com/photo/2021/01/21/16/49/books-5937823_1280.jpg') !important;
+		opacity:0.8;
+		
 		padding: 0 !important;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -19,17 +17,22 @@ html, body{
 		overflow: hidden;
 		border:0 !important;
 		width: 300px;
-		box-shadow: 0px 0px 15px 1px;
-		-webkit-box-shadow:0px 0px 15px 1px;
+		 box-shadow: 0px 10px 30px 5px rgb(0 0 0 / 15%);
+		-webkit-box-shadow: 0px 10px 30px 5px rgb(0 0 0 / 15%);
 	}
+	
+	
+	
 	.profile_pic{
 		position: absolute;
 		bottom: -50px;
-		height: 112px;
+		/*height: 112px;
 		width: 112px;
-		padding: 5px;
-		border: 2px solid #ab896e;
+		 padding: 5px; */
+		border: 3px solid #dedede;
+		padding:2px;
 		border-radius: 50%;
+		
 	}
 	.card-body{
 		padding-top: 55px !important;
@@ -38,6 +41,7 @@ html, body{
 		height: 100px;
 		width: 100px;
 		border-radius: 50%;
+		background-position: center center
 	}
 	.name_container{
 		display: flex;
@@ -75,7 +79,7 @@ html, body{
 		background: #2196F3;
 		padding: 7px;
 		color: #fff;
-		border-radius: 12px;
+		border-radius: 0px;
 		cursor: pointer;
 	}
 
@@ -128,10 +132,10 @@ html, body{
 		padding: 10px;
 		width: 50%;
 		text-transform: uppercase;
-		background: #e8d3c1;
+		background: #fff5ea;
 		color: #fff;
 		cursor: pointer;
-		border-bottom-right-radius: calc(0.25rem - 1px);
+		/* border-bottom-right-radius: calc(0.25rem - 1px); */
 	}
 
 	.message::before{
@@ -139,17 +143,20 @@ html, body{
 		content: "\f27a";
 		font-weight: 600;
 		margin-right: 5px;
+		color:#5b584a;
 	}
 .view_profile{
+	text-decoration: none;
 		display: flex;
 		justify-content: center;
 		padding: 10px;
 		width: 50%;
 		text-transform: uppercase;
-		background: #ab896e;
-		color: #fff;
+		background: #e8974c;
+		color: #f5f5f5;
+		font-weight:500;
 		cursor: pointer;
-		border-bottom-left-radius: calc(0.25rem - 1px);
+		/* border-bottom-left-radius: calc(0.25rem - 1px); */
 		
 	}
 	.view_profile::before{

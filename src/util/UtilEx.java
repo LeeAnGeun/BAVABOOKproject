@@ -14,10 +14,9 @@ public class UtilEx {
 	public static String calllist(int year, int month, int day) {
 		String str = "";
 		
-		str += String.format("&nbsp;<a href='%s?year=%d&month=%d&day=%d'>", 
-										"schedul?param=schedulwrite", year, month, day);
+		str += String.format("&nbsp;<span style='color:#4b4b49;font-weight:500;font-size:11pt;margin-top:-2px;margin-bottom:3px'>", year, month, day);
 		str += String .format("%2d", day);
-		str += "</a>";
+		str += "</span>";
 		
 		// str = <a href='callist.jsp?year=2021&month=3&day=19'>19</a>
 		return str;
@@ -27,7 +26,7 @@ public class UtilEx {
 	public static String showPen(int year, int month, int day) {
 		String str ="";
 		
-		String image = "<img src='img/calpen.svg' width='18px' height='18px'>";
+		String image = "<img src='img/calpen.svg' width='18px' height='18px' style='float:right;margin-top:2px'>";
 		
 		str = String.format("<a href='%s&syear=%d&smonth=%d&sday=%d'>%s</a>", 
 							"schedule?param=schedulwrite", year, month, day, image);

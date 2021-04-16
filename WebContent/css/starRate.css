@@ -7,15 +7,15 @@ a:hover{
 }
 h1{
     text-align: center;
-    background-color: #fff;
+    /* background-color: #fff; */
     padding: 5px;
     margin: 0;
 }
 
 /* 레이아웃 외곽 너비 400px 제한*/
-.wrap{
+/* .wrap{
     max-width: 480px;
-    margin: 0 auto; /* 화면 가운데로 */
+    margin: 0 auto; 화면 가운데로
     background-color: #fff;
     height: 100%;
     padding: 20px;
@@ -26,7 +26,7 @@ h1{
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-}
+} */
 .rating .rate_radio {
     position: relative;
     display: inline-block;
@@ -56,6 +56,8 @@ h1{
     width: 0;
     height: 30px;
     position: absolute;
+    float: left;
+    margin-right: 20px;
 }
 
 .cmd{
@@ -71,14 +73,25 @@ h1{
 }
 /* 5자 이상의 글자 작성해주세요 메세지 설정 */
 .warning_msg {
-    display: none;
+    /* 
     position: relative;
-    text-align: center;
+   text-align: center;
     background: #ffffff;
-    line-height: 26px;
-    width: 100%;
-    color: red;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #e0e0e0;
+    line-height: 26px; 
+     width: 100%; */
+     display: none;
+    float:left;
+    color: #4b4b49;
+    margin: 10px 0 0 10px;
+   /* box-sizing: border-box;
+    border: 1px solid #e0e0e0;*/
+}
+
+.warning_msg2 {
+ 
+    position: relative;
+    background: #ffffff;
+    line-height: 26px; 
+    display: none;
+    color: #4b4b49;
 }

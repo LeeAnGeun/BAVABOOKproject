@@ -22,7 +22,38 @@
 <style type="text/css">
 body {
     margin: 0;
-    background: #F1EDEA;
+}
+
+.btn{
+  border-radius: 2;
+  background: #e8974c;
+  color: #f5f5f5;
+  width: 100%;
+  border: 1px solid #E8E8E8;
+}
+
+.btn:hover{
+  background: #f2f2f2;
+  color: #4b4b49;
+  transition: background-color 0.3s linear;
+}
+
+.container .master > a{
+   text-decoration: none;
+}
+
+.container .master > a> h4{
+   color: #4b4b49;   
+   font-size: 20pt;
+   font-weight: 700;
+}
+
+.container .master > p{
+   margin-top:5px;
+   color: #4b4b49;   
+   font-size: 11pt;
+   font-weight: 400;
+   font-style: italic;
 }
 
 </style>
@@ -40,26 +71,31 @@ BookDto book = (BookDto)request.getAttribute("book");
 
 %>
 <header style="height: 5em">
-
-<h1>관리자 수정 페이지</h1>
-
 </header>
 
+<div class="container">
+	<div class="master" style="height:65px;border-left:4px solid #e8974c;padding-left:25px; margin-bottom: 50px;margin-top:20px;">
+	   <a href="book?param=masterPage"><h4>BAVABOOK 관리자 페이지</h4></a>
+	   <p>BAVABOOK 관리자페이지입니다.</p>
+	</div>
+</div>
 
-<!-- /////////////////////////책소개부분//////////////////////////// -->
- <form action="loginimg" method="post" name="userInfo" enctype="multipart/form-data">
- <input type="hidden" name="checkFlag" value="update" />
+<!-- ////////////////////////책 update//////////////////////////// -->
+<div style="background-color: #f1edea; height: 450px; margin-top: 50px">
+<div class="container" style="position: relative;">
+<form action="loginimg?param=book" method="post" name="userInfo" enctype="multipart/form-data">
+<input type="hidden" name="checkFlag" value="update" />
 <div class="layer">
 <div class="container">
   <div class="row p-4">
-   <div class="col-sm-9">
+   <div class="col-sm-9" style="margin:0 auto;">
       <div class="row">
          <div class="col-sm-5 service-wrap" >
             <div class="center-block bookimg" style="text-align: center; display: inline-block;">
             <label for="newImg">
                
-                  <img id="bookImg" class="img-responsive bookimg" src="https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg">
-               
+                  <img id="bookImg" style="height: 400px;" class="img-responsive bookimg" src="./upload/<%=book.getBookimage() %>">
+               		<input type="hidden" name="oldfile" value="<%=book.getBookimage() %>">
             </label>
             <input type="file" name="bookimage" id="newImg" style="display: none; width: 100%;">
             </div>
@@ -80,7 +116,7 @@ BookDto book = (BookDto)request.getAttribute("book");
                <tr>
                   <th>장르</th>
                   <td>
-                  <select class="category" name="categories">
+                  <select class="category" name="categories" style="width:185.6px;height:30px">
                       <option value="100"  <%if(book.getCategories() == 100) {%>selected<%} %>>시</option>
                         <option value="200" <%if(book.getCategories() == 200) {%>selected<%} %>>소설</option>
                         <option value="300" <%if(book.getCategories() == 300) {%>selected<%} %>>에세이</option>
@@ -104,7 +140,7 @@ BookDto book = (BookDto)request.getAttribute("book");
                </tr>
                <tr>
                   <th>발행일</th>
-                  <td><input type="text" name="issudate"  placeholder="발행일" id="datepicker" value=""></td>
+                  <td><input type="text" name="issudate"  placeholder="발행일" id="datepicker" value="<%=book.getIssudate().substring(0, 10) %>"></td>
                </tr>
                <tr>
                   <th>출판사</th>
@@ -112,15 +148,12 @@ BookDto book = (BookDto)request.getAttribute("book");
                </tr>
             </table>
          <input type="hidden" name="bookNumber" placeholder="출판사" value="<%=book.getBooknum()%>">
-            <div class="col-sm-12 p-3" style="border: 1px solid black">
-               <div class="row">
-                     <div class="col-sm-6 p-4">
-                         <button type="submit">수정 완료</button>
-                         <button type="button" onclick="deleteBook('<%=book.getBooknum() %>')">삭제</button>
-                     </div>
+            <div class="row" style="margin-right: -225px;">
+                  <div class="col-sm-6 p-2" style="margin-left: 10px;">
+                      <button type="submit" class="btn btn-block">수정 완료</button>
+                      <button type="button" class="btn btn-block" onclick="deleteBook('<%=book.getBooknum() %>')">삭제</button>
                   </div>
-            </div>   
-            
+            </div>
          </div>
       </div>
            
@@ -128,7 +161,9 @@ BookDto book = (BookDto)request.getAttribute("book");
    </div>
 </div>
 </div>
- </form> 
+</form>
+</div>
+</div>
 
  <script type="text/javascript">        
 var sel_file;

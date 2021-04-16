@@ -270,4 +270,7 @@
    
 }
 
-
+.left-link:hover, .left-active{
+  border-left: solid #e9974d 3px;
+  font-weight: bold;
+}

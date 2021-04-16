@@ -52,40 +52,40 @@ String searchText = (String)request.getAttribute("searchText");
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  <link href="css/main.css" rel="stylesheet" />
-  <link href="css/book.css" rel="stylesheet" />
-  <link href="css/action.css" rel="stylesheet" />
-  
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   
   <!-- css -->
-    <link href="css/action.css" rel="stylesheet" />
+    <link href="css/all.css" rel="stylesheet" />
+ 	<link href="css/book.css" rel="stylesheet" />
+  	
+  	
+	<!-- font font-family: 'Noto Serif KR', serif; -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
   
-   <!-- 애니메이션용 링크 -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-   
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
-
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
 
 <title>카드 추가</title>
 </head>
-<body>
-<div class="container">
-	<h2>카드 추가</h2>
+<body style="font-family: 'Noto Serif KR', serif;">
 
+<div style="height: 4em">
+</div>
+<div class="container">
+	<div class="animate__animated animate__fadeIn Sheader" style="height:65px;border-left:4px solid #e8974c;padding-left:25px; margin-bottom:50px;margin-top:50px;">
+	   <h2>카드 추가</h2>
+	   <p style="font-style: italic;">원하는 책의 카드를 추가하세요.</p>
+	</div>
+	
 	<div class="row">
 	<div class="col-sm-8 col-xs-12">
 		<div id="NewBook" class="container tab-pane active"><br>
-   	<div class="gtco-container">
+   	<div class="gtco-container" style="margin-top: -50px;margin-left: -50px">
    	<div class='row gtco-section gtco-products'>
 			<!-- 책을 가져오는 부분 -->
    	 		<%
    	 			if(Booklist == null || Booklist.size() == 0){
    	 		%>
-   	 		<div>
+   	 		<div style="margin-left: 30px;margin-top: 20px">
    	 			<p>검색한 책이 없습니다.</p>
    	 		</div>
    	 		<%
@@ -102,7 +102,7 @@ String searchText = (String)request.getAttribute("searchText");
 						<p><%=dto.getAuthor() %></p>
 					</div>
 				</div>	
-		 		 	<img class="service" src="https://image.aladin.co.kr/product/26809/94/cover500/k572730190_1.jpg" >
+		 		 	<img class="service" src="./upload/<%=dto.getBookimage() %>" style="height: 240px" >
 	 			</a>
 	 			</div>	
 	 			<%		}
@@ -112,7 +112,7 @@ String searchText = (String)request.getAttribute("searchText");
 	</div>		
 		
 		<!-- 페이징 버튼 -->
-		<div class="btn-toolbar justify-content-center paging" role="toolbar" aria-label="Toolbar with button groups"">	
+		<div class="btn-toolbar justify-content-center paging" role="toolbar" aria-label="Toolbar with button groups" style="margin-bottom: 30px;">	
 			<div class="btn-group mr-2" role="group" aria-label="First group" >
 			<%
 				for(int i = 0;i<bookPage;i++){
@@ -132,21 +132,26 @@ String searchText = (String)request.getAttribute("searchText");
     	</div>
     </div>
     
-	<div class="col-sm-4 col-xs-12">
-				
+	<div class="col-sm-4 col-xs-12" style="background-color:#f5f5f5;height: 600px; box-shadow: 0px 10px 30px 5px rgb(0 0 0 / 15%);">
+	
+	
+	<div style="border-bottom: 3px solid #E8D3C1;margin-bottom: 10px;margin-top: 20px">
+         <h2 class="animate__animated animate__fadeInRight" style="margin-left: 10px;">ADD BOOK</h2>
+      </div>
+	<div class="animate__animated animate__fadeInRight" style="height: 600px;width:350px;" align="center">			
 	<form id="frm" action="club" method="">
 		<input type="hidden" value="cardaddAf" name="param">
 		<input type="hidden" value="<%=clubseq %>" id="clubseq" name="clubseq">
 		<table class="table table-border">
 		<!-- <col width="200"><col width="500"> -->
 		<tr>
-			<th>카드 제목</th>
+			<th>카드<br>제목</th>
 			<td>
 				<input type="text" id="cardtitle" name="cardtitle">
 			</td>
 		</tr>
 		<tr>
-			<th>카드 코멘트</th>
+			<th>카드<br>코멘트</th>
 			<td>
 				<textarea rows="2" cols="23" id="cardtext" name="cardtext"></textarea>
 			</td>
@@ -176,11 +181,11 @@ String searchText = (String)request.getAttribute("searchText");
 			<th>검색</th>	
 			<td>
 			<div class="input-group mb-3">
-				<select id="searchTitle" class="form-control">
+				<select id="searchTitle" class="form-control" >
 			    	<option value="title">책제목</option>
 					<option value="author">책저자</option>
 			  	</select>
-			    <input type="text" class="form-control" id="searchText" value="<%=searchText %>" placeholder="검색">
+			    <input type="text" class="form-control" id="searchText" size="5" value="<%=searchText %>" placeholder="검색">
 			    <div class="input-group-append">
 			    	<button class="btn" type="button" onclick="searchBook()"><i class="fa fa-search" aria-hidden="true"></i></button>
 			     </div>
@@ -194,14 +199,13 @@ String searchText = (String)request.getAttribute("searchText");
 			</tr>
 		</table>
 	</form>
-		
+	</div>	
 		
 		
 	    	
 	</div>
 </div>
 </div>
-
 <script type="text/javascript">
 	function searchBook(){
 		let clubseq = document.getElementById("clubseq").value;
@@ -229,7 +233,8 @@ String searchText = (String)request.getAttribute("searchText");
 	}
 
 </script>
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	
